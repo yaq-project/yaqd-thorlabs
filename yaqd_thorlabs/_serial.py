@@ -2,6 +2,7 @@ import asyncio
 import re
 
 from yaqd_core import aserial, logging
+
 logger = logging.getLogger("serial")
 
 
@@ -24,10 +25,11 @@ class SerialDispatcher:
             data = await self.write_queue.get()
             self.port.write(data)
             self.write_queue.task_done()
-            #await asyncio.sleep(0.01)
+            # await asyncio.sleep(0.01)
 
     async def read_dispatch(self):
-        import thorlabs_apt_protocol as apt
+        import thorlabs_apt_protocol as apt  # type: ignore
+
         unpacker = apt.Unpacker(self.port)
         async for msg in unpacker:
             if msg.source in workers:
