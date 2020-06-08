@@ -34,7 +34,11 @@ class ThorlabsAptMotor(ContinuousHardware):
         if config["serial_port"] in ThorlabsAptMotor.serial_dispatchers:
             self._serial = ThorlabsAptMotor.serial_dispatchers[config["serial_port"]]
         else:
-            self._serial = SerialDispatcher(serial.Serial(config["serial_port"], config["baud_rate"], timeout=0, inter_char_timeout=0.001))
+            self._serial = SerialDispatcher(serial.Serial(config["serial_port"], config["baud_rate"], timeout=0, inter_char_timeout=0.001, rtscts=True))
+            self._serial.rts = True
+            self._serial.reset_input_buffer()
+            self._serial.reset_output_buffer()
+            self._serial.rts = False
             ThorlabsAptMotor.serial_dispatchers[config["serial_port"]] = self._serial
 
         self._serial.write(apt.mot_hw_no_flash_programming(self._dest, self._source))
