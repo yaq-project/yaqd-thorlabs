@@ -4,7 +4,7 @@ import asyncio
 from typing import Dict, Any, List
 
 import serial  # type: ignore
-import thorlabs_apt_protocoal as apt  # type: ignore
+import thorlabs_apt_protocol as apt  # type: ignore
 from yaqd_core import ContinuousHardware
 
 from .__version__ import __branch__
