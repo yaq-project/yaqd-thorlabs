@@ -1,22 +1,13 @@
 """Define version."""
 
 
-# --- import --------------------------------------------------------------------------------------
-
-
 import pathlib
-
-
-# ---- define -------------------------------------------------------------------------------------
 
 
 here = pathlib.Path(__file__).resolve().parent
 
 
 __all__ = ["__version__", "__branch__"]
-
-
-# --- version -------------------------------------------------------------------------------------
 
 
 # read from VERSION file
@@ -33,7 +24,6 @@ p = p / "HEAD"
 if p.exists():
     with open(str(p)) as f:
         __branch__ = f.readline().rstrip().split(r"/")[-1]
-    if __branch__ != "master":
-        __version__ += "+" + __branch__
+    __version__ += "+" + __branch__
 else:
     __branch__ = ""

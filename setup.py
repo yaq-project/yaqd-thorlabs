@@ -1,45 +1,56 @@
-#! /usr/bin/env python3
+#!/usr/bin/env python3
 
-import os
+"""The setup script."""
+
+import pathlib
 from setuptools import setup, find_packages
 
+here = pathlib.Path(__file__).parent
 
-here = os.path.abspath(os.path.dirname(__file__))
-
-
-def read(fname):
-    return open(os.path.join(here, fname)).read()
-
-
-with open(os.path.join(here, "yaqd_thorlabs", "VERSION")) as version_file:
+with open(here / "yaqd_thorlabs" / "VERSION") as version_file:
     version = version_file.read().strip()
 
+
+with open("README.md") as readme_file:
+    readme = readme_file.read()
+
+
+requirements = ["yaqd-core>=2020.05.1"]
+
+extra_requirements = {"dev": ["black", "pre-commit"]}
 extra_files = {"yaqd_thorlabs": ["VERSION"]}
 
 setup(
-    name="yaqd-thorlabs",
-    packages=find_packages(exclude=("tests", "tests.*")),
-    package_data=extra_files,
-    python_requires=">=3.7",
-    install_requires=["yaqd-core"],
-    extras_require={
-        "docs": ["sphinx", "sphinx-gallery>=0.3.0", "sphinx-rtd-theme"],
-        "dev": ["black", "pre-commit", "pydocstyle"],
-    },
-    version=version,
-    description="Core structures for yaq component daemons",
-    # long_description=read("README.rst"),
     author="yaq Developers",
-    license="LGPL v3",
-    url="http://gitlab.com/yaq/yaqd-thorlabs",
-    keywords="spectroscopy science multidimensional hardware",
+    author_email="git@ksunden.space",
+    python_requires=">=3.7",
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: Scientific/Engineering",
     ],
+    description="yaq daemons for thorlabs hardware",
+    entry_points={
+        "console_scripts": [
+            "yaqd-thorlabs-apt-motor=yaqd_thorlabs._thorlabs_apt_motor:ThorlabsAptMotor.main",
+        ],
+    },
+    install_requires=requirements,
+    extras_require=extra_requirements,
+    license="GNU Lesser General Public License v3 (LGPL)",
+    long_description=readme,
+    long_description_content_type="text/markdown",
+    include_package_data=True,
+    package_data=extra_files,
+    keywords="yaqd-thorlabs",
+    name="yaqd-thorlabs",
+    packages=find_packages(include=["yaqd_thorlabs", "yaqd_thorlabs.*"]),
+    url="https://gitlab.com/yaq/yaqd-thorlabs",
+    version=version,
+    zip_safe=False,
 )
