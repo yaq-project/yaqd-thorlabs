@@ -69,7 +69,7 @@ class ThorlabsAptMotor(ContinuousHardware):
     def home(self):
         self.loop.create_task(self._home())
 
-    def _home(self):
+    async def _home(self):
         self._busy = True
         self._serial.write(apt.mot_move_home(self._dest, self._source, self._chan_ident))
         self._home_event = asyncio.Event()
