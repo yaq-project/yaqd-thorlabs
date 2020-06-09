@@ -49,9 +49,12 @@ class ThorlabsAptMotor(ContinuousHardware):
         super().__init__(name, config, config_filepath)
 
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
-        # Looking closer, this may only apply to servos... may have to set steps per unit and hw limits ourselves...
-        self._serial.write(apt.mot_req_stageaxisparams(self._dest, self._source, self._chan_ident))
-        self._steps_per_unit = 1  # Set in response to stageaxisparams
+        self._steps_per_unit = 25600
+
+    async def _ack_updates(self):
+        while True:
+            self._serial.write(apt.mot_ack_dcstatusupdate(self._dest, self._source))
+            await asyncio.sleep(1)
 
     def units_to_steps(self, position):
         return round(position * self._steps_per_unit)
