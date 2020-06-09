@@ -14,7 +14,7 @@ from ._serial import SerialDispatcher
 class ThorlabsAptMotor(ContinuousHardware):
     _kind = "thorlabs-apt-motor"
     _version = "0.1.0" + f"+{__branch__}" if __branch__ else ""
-    traits: List[str] = []
+    traits: List[str] = ["uses-serial", "uses-uart", "is-homeable"]
     defaults: Dict[str, Any] = {
         "source": 0x01,
         "dest": 0x50,
@@ -96,3 +96,7 @@ class ThorlabsAptMotor(ContinuousHardware):
                 self._busy = not reply.settled
             else:
                 logger.info(f"Unhandled reply {reply}")
+
+    def direct_serial_write(self, message):
+        self._busy = True
+        self._serial.write(message)
