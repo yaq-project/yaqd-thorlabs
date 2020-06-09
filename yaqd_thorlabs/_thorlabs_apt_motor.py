@@ -8,6 +8,7 @@ import thorlabs_apt_protocol as apt  # type: ignore
 from yaqd_core import ContinuousHardware
 
 from .__version__ import __branch__
+from ._serial import SerialDispatcher
 
 
 class ThorlabsAptMotor(ContinuousHardware):
@@ -20,9 +21,9 @@ class ThorlabsAptMotor(ContinuousHardware):
         "chan_ident": 0x01,
         "baud_rate": 115200,
     }
+    serial_dispatchers: Dict[str, SerialDispatcher] = {}
 
     def __init__(self, name, config, config_filepath):
-        super().__init__(name, config, config_filepath)
         self._source = config["source"]
         self._dest = config["dest"]
         # Very few hardware actually use chan_ident as anything other than 0x01
@@ -35,21 +36,19 @@ class ThorlabsAptMotor(ContinuousHardware):
             self._serial = ThorlabsAptMotor.serial_dispatchers[config["serial_port"]]
         else:
             self._serial = SerialDispatcher(
-                serial.Serial(
-                    config["serial_port"],
-                    config["baud_rate"],
-                    timeout=0,
-                    inter_char_timeout=0.001,
-                    rtscts=True,
-                )
+                serial.Serial(config["serial_port"], config["baud_rate"], timeout=0, rtscts=True,)
             )
-            self._serial.rts = True
-            self._serial.reset_input_buffer()
-            self._serial.reset_output_buffer()
-            self._serial.rts = False
+            self._serial.port.rts = True
+            self._serial.port.reset_input_buffer()
+            self._serial.port.reset_output_buffer()
+            self._serial.port.rts = False
             ThorlabsAptMotor.serial_dispatchers[config["serial_port"]] = self._serial
+        self._read_queue = asyncio.Queue()
+        self._serial.workers[self._dest] = self._read_queue
 
-        self._serial.write(apt.mot_hw_no_flash_programming(self._dest, self._source))
+        super().__init__(name, config, config_filepath)
+
+        self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
         # Looking closer, this may only apply to servos... may have to set steps per unit and hw limits ourselves...
         self._serial.write(apt.mot_req_stageaxisparams(self._dest, self._source, self._chan_ident))
         self._steps_per_unit = 1  # Set in response to stageaxisparams
@@ -67,7 +66,7 @@ class ThorlabsAptMotor(ContinuousHardware):
         )
 
     def home(self):
-        self.loop.create_task(self._home())
+        self._loop.create_task(self._home())
 
     async def _home(self):
         self._busy = True
