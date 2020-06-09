@@ -50,6 +50,7 @@ class ThorlabsAptMotor(ContinuousHardware):
 
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
         self._steps_per_unit = 25600
+        self._tasks.append(self._loop.create_task(self._ack_updates()))
 
     async def _ack_updates(self):
         while True:
