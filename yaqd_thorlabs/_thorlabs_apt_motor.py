@@ -50,12 +50,6 @@ class ThorlabsAptMotor(ContinuousHardware):
 
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
         self._steps_per_unit = 25600
-        self._tasks.append(self._loop.create_task(self._ack_updates()))
-
-    async def _ack_updates(self):
-        while True:
-            self._serial.write(apt.mot_ack_dcstatusupdate(self._dest, self._source))
-            await asyncio.sleep(1)
 
     def units_to_steps(self, position):
         return round(position * self._steps_per_unit)
@@ -83,23 +77,26 @@ class ThorlabsAptMotor(ContinuousHardware):
         """Continually monitor and update the current daemon state."""
         # If there is no state to monitor continuously, delete this function
         while True:
-            reply = await self._read_queue.get()
-            # mot_get_stageaxisparams
-            if reply.msgid == 0x04F2:
-                self._steps_per_unit = reply.counts_per_unit
-                self._hw_limits = (
-                    self.steps_to_units(reply.min_pos),
-                    self.steps_to_units(reply.max_pos),
-                )
-            # mot_move_homed
-            elif reply.msgid == 0x0444:
-                self._home_event.set()
-            # mot_move_completed, mot_get_statusupdate, mot_get_dcstatusupdate, mot_get_statusbits
-            elif reply.msgid in (0x0464, 0x0481, 0x042A):
-                self._position = self.steps_to_units(reply.position)
-                self._busy = not reply.settled
-            else:
-                logger.info(f"Unhandled reply {reply}")
+            try:
+                reply = await self._read_queue.get()
+                # mot_get_stageaxisparams
+                if reply.msgid == 0x04F2:
+                    self._steps_per_unit = reply.counts_per_unit
+                    self._hw_limits = (
+                        self.steps_to_units(reply.min_pos),
+                        self.steps_to_units(reply.max_pos),
+                    )
+                # mot_move_homed
+                elif reply.msgid == 0x0444:
+                    self._home_event.set()
+                # mot_move_completed, mot_get_statusupdate, mot_get_dcstatusupdate, mot_get_statusbits
+                elif reply.msgid in (0x0464, 0x0481, 0x042A):
+                    self._position = self.steps_to_units(reply.position)
+                    self._busy = reply.moving_forward or reply.moving_reverse or reply.homing
+                else:
+                    self.logger.info(f"Unhandled reply {reply}")
+            except Exception as e:
+                self.logger.error(e)
 
     def direct_serial_write(self, message):
         self._busy = True
