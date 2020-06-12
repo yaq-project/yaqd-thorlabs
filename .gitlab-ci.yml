@@ -29,8 +29,8 @@ mypy:
 entry:
   stage: test
   script:
-    - yaqd-thorlabs-apt-motor --version
-    - yaqd-thorlabs-apt-motor -h
+    - yaqd-thorlabs-lts300--version
+    - yaqd-thorlabs-lts300 -h
 
 # deploy stage
 twine:
