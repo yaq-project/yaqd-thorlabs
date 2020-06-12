@@ -20,6 +20,7 @@ class ThorlabsAptMotor(ContinuousHardware):
         "dest": 0x50,
         "chan_ident": 0x01,
         "baud_rate": 115200,
+        "make": "Thorlabs",
     }
     serial_dispatchers: Dict[str, SerialDispatcher] = {}
 
@@ -31,6 +32,7 @@ class ThorlabsAptMotor(ContinuousHardware):
         # being the only thing separating daemons, which manifests in the serial dispatcher
         # -- KFS 2020-06-08
         self._chan_ident = config["chan_ident"]
+        self._steps_per_unit = config["steps_per_unit"]
 
         if config["serial_port"] in ThorlabsAptMotor.serial_dispatchers:
             self._serial = ThorlabsAptMotor.serial_dispatchers[config["serial_port"]]
@@ -49,7 +51,7 @@ class ThorlabsAptMotor(ContinuousHardware):
         super().__init__(name, config, config_filepath)
 
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
-        self._steps_per_unit = 25600
+        self._serial.write(apt.hw_get_info(self._dest, self._source))
 
     def units_to_steps(self, position):
         return round(position * self._steps_per_unit)
@@ -79,20 +81,24 @@ class ThorlabsAptMotor(ContinuousHardware):
         while True:
             try:
                 reply = await self._read_queue.get()
+                # mot_move_completed, mot_get_statusupdate, mot_get_dcstatusupdate, mot_get_statusbits
+                if reply.msgid in (0x0464, 0x0481, 0x042A):
+                    self._position = self.steps_to_units(reply.position)
+                    self._busy = reply.moving_forward or reply.moving_reverse or reply.homing
+                # mot_move_homed
+                elif reply.msgid == 0x0444:
+                    self._home_event.set()
+                # hw_get_info
+                elif reply.msgid == 0x0006:
+                    self._serial_number = str(reply.serial_number)
+                    self._model = reply.model_number.decode().strip()
                 # mot_get_stageaxisparams
-                if reply.msgid == 0x04F2:
+                elif reply.msgid == 0x04F2:
                     self._steps_per_unit = reply.counts_per_unit
                     self._hw_limits = (
                         self.steps_to_units(reply.min_pos),
                         self.steps_to_units(reply.max_pos),
                     )
-                # mot_move_homed
-                elif reply.msgid == 0x0444:
-                    self._home_event.set()
-                # mot_move_completed, mot_get_statusupdate, mot_get_dcstatusupdate, mot_get_statusbits
-                elif reply.msgid in (0x0464, 0x0481, 0x042A):
-                    self._position = self.steps_to_units(reply.position)
-                    self._busy = reply.moving_forward or reply.moving_reverse or reply.homing
                 else:
                     self.logger.info(f"Unhandled reply {reply}")
             except Exception as e:

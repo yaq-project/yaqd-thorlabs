@@ -37,7 +37,12 @@ setup(
     description="yaq daemons for thorlabs hardware",
     entry_points={
         "console_scripts": [
-            "yaqd-thorlabs-apt-motor=yaqd_thorlabs._thorlabs_apt_motor:ThorlabsAptMotor.main",
+            "yaqd-thorlabs-lts150=yaqd_thorlabs._thorlabs_lts150:ThorlabsAptMotor.main",
+            "yaqd-thorlabs-lts300=yaqd_thorlabs._thorlabs_lts300:ThorlabsAptMotor.main",
+            "yaqd-thorlabs-k10cr1=yaqd_thorlabs._thorlabs_k10cr1:ThorlabsAptMotor.main",
+            "yaqd-thorlabs-kst101=yaqd_thorlabs._thorlabs_kst101:ThorlabsAptMotor.main",
+            "yaqd-thorlabs-kdc101=yaqd_thorlabs._thorlabs_kdc101:ThorlabsAptMotor.main",
+            "yaqd-thorlabs-bsc101=yaqd_thorlabs._thorlabs_bst101:ThorlabsAptMotor.main",
         ],
     },
     install_requires=requirements,
