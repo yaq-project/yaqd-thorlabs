@@ -51,7 +51,7 @@ class ThorlabsAptMotor(ContinuousHardware):
         super().__init__(name, config, config_filepath)
 
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
-        self._serial.write(apt.hw_get_info(self._dest, self._source))
+        self._serial.write(apt.hw_req_info(self._dest, self._source))
 
     def units_to_steps(self, position):
         return round(position * self._steps_per_unit)
