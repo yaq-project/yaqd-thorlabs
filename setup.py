@@ -15,7 +15,7 @@ with open("README.md") as readme_file:
     readme = readme_file.read()
 
 
-requirements = ["yaqd-core>=2020.05.1"]
+requirements = ["yaqd-core>=2020.05.1", "pyserial", "thorlabs-apt-protocol"]
 
 extra_requirements = {"dev": ["black", "pre-commit"]}
 extra_files = {"yaqd_thorlabs": ["VERSION"]}
