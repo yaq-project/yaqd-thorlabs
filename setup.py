@@ -37,12 +37,12 @@ setup(
     description="yaq daemons for thorlabs hardware",
     entry_points={
         "console_scripts": [
-            "yaqd-thorlabs-lts150=yaqd_thorlabs._thorlabs_lts150:ThorlabsAptMotor.main",
-            "yaqd-thorlabs-lts300=yaqd_thorlabs._thorlabs_lts300:ThorlabsAptMotor.main",
-            "yaqd-thorlabs-k10cr1=yaqd_thorlabs._thorlabs_k10cr1:ThorlabsAptMotor.main",
-            "yaqd-thorlabs-kst101=yaqd_thorlabs._thorlabs_kst101:ThorlabsAptMotor.main",
-            "yaqd-thorlabs-kdc101=yaqd_thorlabs._thorlabs_kdc101:ThorlabsAptMotor.main",
-            "yaqd-thorlabs-bsc101=yaqd_thorlabs._thorlabs_bst101:ThorlabsAptMotor.main",
+            "yaqd-thorlabs-lts150=yaqd_thorlabs._thorlabs_lts150:ThorlabsLTS150.main",
+            "yaqd-thorlabs-lts300=yaqd_thorlabs._thorlabs_lts300:ThorlabsLTS300.main",
+            "yaqd-thorlabs-k10cr1=yaqd_thorlabs._thorlabs_k10cr1:ThorlabsK10CR1.main",
+            "yaqd-thorlabs-kst101=yaqd_thorlabs._thorlabs_kst101:ThorlabsKST101.main",
+            "yaqd-thorlabs-kdc101=yaqd_thorlabs._thorlabs_kdc101:ThorlabsKDC101.main",
+            "yaqd-thorlabs-bsc101=yaqd_thorlabs._thorlabs_bst101:ThorlabsBSC101.main",
         ],
     },
     install_requires=requirements,
