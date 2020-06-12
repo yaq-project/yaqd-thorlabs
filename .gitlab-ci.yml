@@ -29,7 +29,7 @@ mypy:
 entry:
   stage: test
   script:
-    - yaqd-thorlabs-lts300--version
+    - yaqd-thorlabs-lts300 --version
     - yaqd-thorlabs-lts300 -h
 
 # deploy stage
