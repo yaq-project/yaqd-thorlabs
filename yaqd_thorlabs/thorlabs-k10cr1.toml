@@ -1,0 +1,33 @@
+protocol = "thorlabs-k10cr1"
+doc = """
+Daemon for the Thorlabs K10CR1 rotational stage
+"""
+traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-thorlabs/"
+bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+manufacturer = "https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=8750&pn=K10CR1"
+
+[config]
+source.type = "int"
+source.default = 1
+source.doc = "Source for apt messages (almost always 0x01)"
+dest.type = "int"
+dest.default = 0x50
+dest.doc = "Destination for apt messages (0x50 for single bay controllers)"
+chan_ident.type = "int"
+chan_ident.default = 1
+chan_ident.doc = "Channel identifier for apt messages (almost always 0x01)"
+units.type = "string"
+units.default = "deg"
+
+baud_rate.default = 115200
+make.default = "Thorlabs"
+model.default = "K10CR1"
+
+steps_per_unit.type = "float"
+steps_per_unit.default = 136533.33333333334 # 409600 / 3
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-thorlabs"

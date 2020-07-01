@@ -1,3 +1,4 @@
+"""yaq daemons for thorlabs hardware"""
 from .__version__ import *
 from ._thorlabs_apt_motor import *
 from ._thorlabs_lts300 import *

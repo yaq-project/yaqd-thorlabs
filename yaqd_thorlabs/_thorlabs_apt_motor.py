@@ -7,21 +7,11 @@ import serial  # type: ignore
 import thorlabs_apt_protocol as apt  # type: ignore
 from yaqd_core import ContinuousHardware
 
-from .__version__ import __branch__
 from ._serial import SerialDispatcher
 
 
 class ThorlabsAptMotor(ContinuousHardware):
     _kind = "thorlabs-apt-motor"
-    _version = "0.1.0" + f"+{__branch__}" if __branch__ else ""
-    traits: List[str] = ["uses-serial", "uses-uart", "is-homeable"]
-    defaults: Dict[str, Any] = {
-        "source": 0x01,
-        "dest": 0x50,
-        "chan_ident": 0x01,
-        "baud_rate": 115200,
-        "make": "Thorlabs",
-    }
     serial_dispatchers: Dict[str, SerialDispatcher] = {}
 
     def __init__(self, name, config, config_filepath):
@@ -73,17 +63,16 @@ class ThorlabsAptMotor(ContinuousHardware):
         self._serial.write(apt.mot_move_home(self._dest, self._source, self._chan_ident))
         self._home_event = asyncio.Event()
         await self._home_event.wait()
-        self.set_position(self._destination)
+        self.set_position(self._state["destination"])
 
     async def update_state(self):
         """Continually monitor and update the current daemon state."""
-        # If there is no state to monitor continuously, delete this function
         while True:
             try:
                 reply = await self._read_queue.get()
                 # mot_move_completed, mot_get_statusupdate, mot_get_dcstatusupdate, mot_get_statusbits
                 if reply.msgid in (0x0464, 0x0481, 0x042A):
-                    self._position = self.steps_to_units(reply.position)
+                    self._state["position"] = self.steps_to_units(reply.position)
                     self._busy = reply.moving_forward or reply.moving_reverse or reply.homing
                 # mot_move_homed
                 elif reply.msgid == 0x0444:
@@ -95,7 +84,7 @@ class ThorlabsAptMotor(ContinuousHardware):
                 # mot_get_stageaxisparams
                 elif reply.msgid == 0x04F2:
                     self._steps_per_unit = reply.counts_per_unit
-                    self._hw_limits = (
+                    self._state["hw_limits"] = (
                         self.steps_to_units(reply.min_pos),
                         self.steps_to_units(reply.max_pos),
                     )
@@ -104,6 +93,6 @@ class ThorlabsAptMotor(ContinuousHardware):
             except Exception as e:
                 self.logger.error(e)
 
-    def direct_serial_write(self, message):
+    def direct_serial_write(self, message: bytes):
         self._busy = True
         self._serial.write(message)
