@@ -1,0 +1,32 @@
+protocol = "thorlabs-bsc201"
+doc = """
+Daemon for the Thorlabs BSC-201 stage
+"""
+traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-thorlabs/"
+bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+manufacturer = "https://www.thorlabschina.cn/thorProduct.cfm?partNumber=BSC201"
+
+[config]
+source.type = "int"
+source.default = 1
+source.doc = "Source for apt messages (almost always 0x01)"
+dest.type = "int"
+dest.default = 0x50
+dest.doc = "Destination for apt messages (0x50 for single bay controllers)"
+chan_ident.type = "int"
+chan_ident.default = 1
+chan_ident.doc = "Channel identifier for apt messages (almost always 0x01)"
+units.type = "string"
+units.default = "mm"
+
+baud_rate.default = 115200
+make.default = "Thorlabs"
+model.default = "BSC201"
+
+steps_per_unit.type = "float"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-thorlabs"
