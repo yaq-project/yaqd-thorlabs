@@ -19,7 +19,7 @@ before_script:
   - pip install -U yaqc
   - pip install -U yaqd-core
   - pip install -U yaq-traits
-  - pip install .
+  - pip install . --no-build-isolation
 
 # test stage
 
