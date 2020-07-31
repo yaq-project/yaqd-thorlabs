@@ -1,5 +1,5 @@
 from ._thorlabs_apt_motor import ThorlabsAptMotor
 
 
-class ThorlabsKS101(ThorlabsAptMotor):
-    _kind = "thorlabs-ks101"
+class ThorlabsKST101(ThorlabsAptMotor):
+    _kind = "thorlabs-kst101"

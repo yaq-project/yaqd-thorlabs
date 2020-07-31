@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## Fixed
+- entry point for KST101 fixed
+- entry point "BSC201" was misspelled as "BSC101", fixed
+
 ## [2020.07.0]
 
 ### Changed

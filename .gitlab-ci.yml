@@ -30,8 +30,21 @@ mypy:
 entry:
   stage: test
   script:
+    - yaqd-thorlabs-lts150 --version
+    - yaqd-thorlabs-lts150 -h
     - yaqd-thorlabs-lts300 --version
     - yaqd-thorlabs-lts300 -h
+    - yaqd-thorlabs-k10cr1 --version
+    - yaqd-thorlabs-k10cr1 -h
+    - yaqd-thorlabs-kst101 --version
+    - yaqd-thorlabs-kst101 -h
+    - yaqd-thorlabs-kdc101 --version
+    - yaqd-thorlabs-kdc101 -h
+    - yaqd-thorlabs-bsc201 --version
+    - yaqd-thorlabs-bsc201 -h
+
+
+
 
 traits:
   stage: test
