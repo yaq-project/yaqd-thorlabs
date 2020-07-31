@@ -11,4 +11,9 @@ yaq daemons for thorlabs hardware
 
 This package contains the following daemon(s):
 
-- https://yaq.fyi/daemons/thorlabs-apt-motor
+- https://yaq.fyi/daemons/thorlabs-bsc201
+- https://yaq.fyi/daemons/thorlabs-k10cr1
+- https://yaq.fyi/daemons/thorlabs-kdc101
+- https://yaq.fyi/daemons/thorlabs-kst101
+- https://yaq.fyi/daemons/thorlabs-lts150
+- https://yaq.fyi/daemons/thorlabs-lts300
