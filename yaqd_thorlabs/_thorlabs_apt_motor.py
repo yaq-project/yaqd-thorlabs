@@ -60,8 +60,8 @@ class ThorlabsAptMotor(ContinuousHardware):
 
     async def _home(self):
         self._busy = True
-        self._serial.write(apt.mot_move_home(self._dest, self._source, self._chan_ident))
         self._home_event = asyncio.Event()
+        self._serial.write(apt.mot_move_home(self._dest, self._source, self._chan_ident))
         await self._home_event.wait()
         self.set_position(self._state["destination"])
 
