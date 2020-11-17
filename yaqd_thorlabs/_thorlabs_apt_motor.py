@@ -42,6 +42,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
 
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
         self._serial.write(apt.hw_req_info(self._dest, self._source))
+        self._serial.write(apt.hw_start_updatemsgs(self._dest, self._source))
 
     def units_to_steps(self, position):
         return round(position * self._steps_per_unit)
