@@ -40,6 +40,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
 
         super().__init__(name, config, config_filepath)
 
+        self._units = config["units"]
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
         self._serial.write(apt.hw_req_info(self._dest, self._source))
         self._serial.write(apt.hw_start_updatemsgs(self._dest, self._source))
