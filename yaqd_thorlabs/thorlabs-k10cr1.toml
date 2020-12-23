@@ -31,3 +31,5 @@ steps_per_unit.default = 136533.33333333334 # 409600 / 3
 
 [installation]
 PyPI = "https://pypi.org/project/yaqd-thorlabs"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-thorlabs"
+
