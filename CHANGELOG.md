@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2020.12.0]
+
 ### Added
 - conda-forge as installation source
 
@@ -38,7 +40,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.11.1...master
+[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.12.0...master
+[2020.12.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.11.1...v2020.12.0
 [2020.11.1]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.11.0...v2020.11.1
 [2020.11.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.07.0...v2020.11.0
 [2020.07.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.06.0...v2020.07.0
