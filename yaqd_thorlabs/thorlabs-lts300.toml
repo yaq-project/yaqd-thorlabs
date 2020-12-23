@@ -34,3 +34,5 @@ hw_limits.default = [0, 300]
 
 [installation]
 PyPI = "https://pypi.org/project/yaqd-thorlabs"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-thorlabs"
+

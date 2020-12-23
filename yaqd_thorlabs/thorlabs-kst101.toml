@@ -30,3 +30,5 @@ steps_per_unit.type = "float"
 
 [installation]
 PyPI = "https://pypi.org/project/yaqd-thorlabs"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-thorlabs"
+
