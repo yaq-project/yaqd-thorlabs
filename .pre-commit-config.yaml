@@ -26,6 +26,3 @@ repos:
     rev: v2020.11.0
     hooks:
       - id: yaq-traits-check
-
-default_language_version:
-  python: python3.8
