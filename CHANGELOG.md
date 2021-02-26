@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - bsc203 support
 - new config, behavior: "polling status"
+- hardware support documentation in avprs
 
 ### Fixed
 - added forgotten config options to is-daemon: enable, log_level, and log_to_file
