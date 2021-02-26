@@ -1,7 +1,7 @@
 {
     "config": {
         "automatic_status_updates": {
-            "default": true,
+            "default": false,
             "doc": "Use the thorlabs apt firmware automatic status updates, otherwise poll",
             "type": "boolean"
         },
@@ -16,8 +16,8 @@
             "type": "int"
         },
         "dest": {
-            "default": 80,
-            "doc": "Destination for apt messages (0x50 for single bay controllers)",
+            "default": 33,
+            "doc": "Destination for apt messages (0x21, 0x22, 0x23 for BSC203 controllers)",
             "type": "int"
         },
         "enable": {
@@ -70,7 +70,7 @@
             ]
         },
         "model": {
-            "default": "LTS150",
+            "default": "BSC203",
             "origin": "is-daemon",
             "type": [
                 "null",
@@ -113,7 +113,6 @@
             "type": "int"
         },
         "steps_per_unit": {
-            "default": 25600,
             "type": "float"
         },
         "units": {
@@ -121,7 +120,7 @@
             "type": "string"
         }
     },
-    "doc": "Daemon for the Thorlabs LTS-150 stage\n",
+    "doc": "Daemon for the Thorlabs BSC-203 stage\n",
     "fields": {
         "destination": {
             "fields": {
@@ -165,7 +164,7 @@
     },
     "links": {
         "bugtracker": "https://gitlab.com/yaq/yaqd-thorlabs/issues",
-        "manufacturer": "https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=3961&pn=LTS150",
+        "manufacturer": "https://www.thorlabschina.cn/thorProduct.cfm?partNumber=BSC203",
         "source": "https://gitlab.com/yaq/yaqd-thorlabs/"
     },
     "messages": {
@@ -298,7 +297,7 @@
             "response": "null"
         }
     },
-    "protocol": "thorlabs-lts150",
+    "protocol": "thorlabs-bsc203",
     "requires": [],
     "state": {
         "destination": {
@@ -308,8 +307,8 @@
         },
         "hw_limits": {
             "default": [
-                0,
-                150
+                -Infinity,
+                Infinity
             ],
             "items": "double",
             "origin": "has-limits",
@@ -322,9 +321,9 @@
         }
     },
     "traits": [
-        "is-homeable",
-        "uses-uart",
         "has-limits",
+        "uses-uart",
+        "is-homeable",
         "uses-serial",
         "is-daemon",
         "has-position"

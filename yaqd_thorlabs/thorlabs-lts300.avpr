@@ -1,5 +1,10 @@
 {
     "config": {
+        "automatic_status_updates": {
+            "default": true,
+            "doc": "Use the thorlabs apt firmware automatic status updates, otherwise poll",
+            "type": "boolean"
+        },
         "baud_rate": {
             "default": 115200,
             "origin": "uses-uart",
@@ -318,10 +323,10 @@
     },
     "traits": [
         "uses-serial",
+        "has-position",
+        "uses-uart",
         "is-homeable",
         "is-daemon",
-        "uses-uart",
-        "has-position",
         "has-limits"
     ],
     "types": [

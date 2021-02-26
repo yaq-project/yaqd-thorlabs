@@ -19,6 +19,9 @@ dest.doc = "Destination for apt messages (0x50 for single bay controllers)"
 chan_ident.type = "int"
 chan_ident.default = 1
 chan_ident.doc = "Channel identifier for apt messages (almost always 0x01)"
+automatic_status_updates.type = "boolean"
+automatic_status_updates.default = true
+automatic_status_updates.doc = "Use the thorlabs apt firmware automatic status updates, otherwise poll"
 units.type = "string"
 units.default = "mm"
 
