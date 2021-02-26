@@ -159,6 +159,9 @@
             "type": "record"
         }
     },
+    "hardware": [
+        "thorlabs:lts150"
+    ],
     "installation": {
         "PyPI": "https://pypi.org/project/yaqd-thorlabs",
         "conda-forge": "https://anaconda.org/conda-forge/yaqd-thorlabs"
@@ -322,11 +325,11 @@
         }
     },
     "traits": [
-        "is-homeable",
-        "uses-uart",
-        "has-limits",
-        "uses-serial",
         "is-daemon",
+        "uses-serial",
+        "is-homeable",
+        "has-limits",
+        "uses-uart",
         "has-position"
     ],
     "types": [

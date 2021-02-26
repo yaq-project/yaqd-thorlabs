@@ -158,6 +158,10 @@
             "type": "record"
         }
     },
+    "hardware": [
+        "thorlabs:bsc203",
+        "thorlabs:lnr502"
+    ],
     "installation": {
         "PyPI": "https://pypi.org/project/yaqd-thorlabs",
         "conda-forge": "https://anaconda.org/conda-forge/yaqd-thorlabs"
@@ -321,12 +325,12 @@
         }
     },
     "traits": [
-        "has-limits",
+        "is-daemon",
+        "uses-serial",
+        "has-position",
         "uses-uart",
         "is-homeable",
-        "uses-serial",
-        "is-daemon",
-        "has-position"
+        "has-limits"
     ],
     "types": [
         {

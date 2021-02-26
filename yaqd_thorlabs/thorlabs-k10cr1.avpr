@@ -159,6 +159,9 @@
             "type": "record"
         }
     },
+    "hardware": [
+        "thorlabs:k10cr1"
+    ],
     "installation": {
         "PyPI": "https://pypi.org/project/yaqd-thorlabs",
         "conda-forge": "https://anaconda.org/conda-forge/yaqd-thorlabs"
@@ -322,12 +325,12 @@
         }
     },
     "traits": [
-        "uses-serial",
+        "uses-uart",
         "has-position",
         "is-daemon",
-        "uses-uart",
+        "is-homeable",
         "has-limits",
-        "is-homeable"
+        "uses-serial"
     ],
     "types": [
         {

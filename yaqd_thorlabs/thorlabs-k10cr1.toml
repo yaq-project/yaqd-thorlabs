@@ -3,6 +3,7 @@ doc = """
 Daemon for the Thorlabs K10CR1 rotational stage
 """
 traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+hardware = ["thorlabs:k10cr1"]
 
 [links]
 source = "https://gitlab.com/yaq/yaqd-thorlabs/"

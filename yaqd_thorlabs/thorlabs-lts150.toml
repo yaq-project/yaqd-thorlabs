@@ -3,6 +3,7 @@ doc = """
 Daemon for the Thorlabs LTS-150 stage
 """
 traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+hardware = ["thorlabs:lts150"]
 
 [links]
 source = "https://gitlab.com/yaq/yaqd-thorlabs/"
