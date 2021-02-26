@@ -28,7 +28,12 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
             self._serial = ThorlabsAptMotor.serial_dispatchers[config["serial_port"]]
         else:
             self._serial = SerialDispatcher(
-                serial.Serial(config["serial_port"], config["baud_rate"], timeout=0, rtscts=True,)
+                serial.Serial(
+                    config["serial_port"],
+                    config["baud_rate"],
+                    timeout=0,
+                    rtscts=True,
+                )
             )
             self._serial.port.rts = True
             self._serial.port.reset_input_buffer()
@@ -43,7 +48,10 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
         self._units = config["units"]
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
         self._serial.write(apt.hw_req_info(self._dest, self._source))
-        self._serial.write(apt.hw_start_updatemsgs(self._dest, self._source))
+        if config["automatic_status_updates"]:
+            self._serial.write(apt.hw_start_updatemsgs(self._dest, self._source))
+        else:
+            self._tasks.append(self._loop.create_task(self.request_status()))
 
     def units_to_steps(self, position):
         return round(position * self._steps_per_unit)
@@ -66,6 +74,13 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
         self._serial.write(apt.mot_move_home(self._dest, self._source, self._chan_ident))
         await self._home_event.wait()
         self.set_position(self._state["destination"])
+
+    async def request_status(self):
+        while True:
+            self._serial.write(
+                apt.mot_req_statusupdate(self._dest, self._source, self._chan_ident)
+            )
+            await asyncio.sleep(0.2)
 
     async def update_state(self):
         """Continually monitor and update the current daemon state."""

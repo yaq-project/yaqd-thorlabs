@@ -12,6 +12,7 @@ yaq daemons for thorlabs hardware
 This package contains the following daemon(s):
 
 - https://yaq.fyi/daemons/thorlabs-bsc201
+- https://yaq.fyi/daemons/thorlabs-bsc203
 - https://yaq.fyi/daemons/thorlabs-k10cr1
 - https://yaq.fyi/daemons/thorlabs-kdc101
 - https://yaq.fyi/daemons/thorlabs-kst101
