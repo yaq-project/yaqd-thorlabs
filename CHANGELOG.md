@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.3.0]
+
+### Fixed
+- add bsc203 entry point
+
 ## [2021.2.0]
 
 ### Added
@@ -50,7 +55,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.2.0...master
+[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.3.0...master
+[2021.3.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.2.0...v2021.3.0
 [2021.2.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.12.0...v2021.2.0
 [2020.12.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.11.1...v2020.12.0
 [2020.11.1]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.11.0...v2020.11.1

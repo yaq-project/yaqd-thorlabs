@@ -42,6 +42,8 @@ entry:
     - yaqd-thorlabs-kdc101 -h
     - yaqd-thorlabs-bsc201 --version
     - yaqd-thorlabs-bsc201 -h
+    - yaqd-thorlabs-bsc203 --version
+    - yaqd-thorlabs-bsc203 -h
 
 
 
