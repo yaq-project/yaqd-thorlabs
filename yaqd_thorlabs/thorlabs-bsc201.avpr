@@ -324,12 +324,12 @@
         }
     },
     "traits": [
-        "uses-uart",
         "has-limits",
         "has-position",
-        "is-homeable",
         "is-daemon",
-        "uses-serial"
+        "is-homeable",
+        "uses-serial",
+        "uses-uart"
     ],
     "types": [
         {
