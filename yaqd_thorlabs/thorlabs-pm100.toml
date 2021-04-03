@@ -1,0 +1,23 @@
+protocol = "thorlabs-pm100"
+doc = """
+Daemon for the Thorlabs LTS-300 stage
+"""
+traits = ["has-measure-trigger", "is-sensor", "is-daemon"]
+hardware = ["thorlabs:pm100"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-thorlabs/"
+bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+manufacturer = "https://www.thorlabs.com/thorproduct.cfm?partnumber=PM100D"
+
+
+[config]
+
+
+[state]
+
+[messages]
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-thorlabs"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-thorlabs"

@@ -18,13 +18,17 @@ This package contains the following daemon(s):
 - https://yaq.fyi/daemons/thorlabs-kst101
 - https://yaq.fyi/daemons/thorlabs-lts150
 - https://yaq.fyi/daemons/thorlabs-lts300
+- https://yaq.fyi/daemons/thorlabs-pm100
 
-## Windows and APT
+## Using Hardware Controllers: Windows and APT
 
-This package uses the serial interface to APT with help from [thorlabs-apt-protocol](https://gitlab.com/yaq/thorlabs-apt-protocol).
+For working with hardware controllers, this package uses the serial interface to APT with help from [thorlabs-apt-protocol](https://gitlab.com/yaq/thorlabs-apt-protocol).
 
 On Windows, you must toggle a driver setting to make the COM port appear:
 
 Within Device Manager, right click on the APT device (under USB devices), and go to Properties.
 On the Advanced tab, check the box that says Load VCP (VCP stands for Virtual COM Port).
 Unplug and replug the USB cable to make it load the COM Port.
+
+## Sensors use PyVISA
+For sensor hardware (PM100), this package uses PyVISA.

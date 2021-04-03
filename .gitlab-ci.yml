@@ -44,8 +44,8 @@ entry:
     - yaqd-thorlabs-bsc201 -h
     - yaqd-thorlabs-bsc203 --version
     - yaqd-thorlabs-bsc203 -h
-
-
+    - yaqd-thorlabs-pm100 --version
+    - yaqd-thorlabs-pm100 -h
 
 
 traits:
