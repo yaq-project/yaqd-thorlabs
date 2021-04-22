@@ -11,12 +11,49 @@ bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
 manufacturer = "https://www.thorlabs.com/thorproduct.cfm?partnumber=PM100D"
 
 
+[[types]]
+name = "readout_type"
+type = "enum"
+symbols = ["POW", "CURR", "VOLT", "ENER", "FREQ", "PDEN", "EDEN", "RES", "TEMP"]
+
+
 [config]
+
+[config.serial]
+type = "string"
+default = "__null__"
+
+[config.averaging]
+type = "int"
+doc = """Apply a digital filter to readout. \
+One sample takes ~0.3ms. \
+Averaging does not affect device readout rate. \
+"""
+default = 1
+
+[config.sampling_interval]
+type = "float"
+doc = """Time, in seconds, between sample measurements. \
+To ensure measurement is synchronous, make sure wait is that device readout time. \
+"""
+default = 0.0
 
 
 [state]
 
+
 [messages]
+
+[messages.direct_scpi_query]
+doc = "Query using SCPI directly.  SCPI query only.  For commands, use `direct_scpi_write`."
+request = [{"name"="query", "type"="string"}]
+response = "string"
+
+
+[messages.direct_scpi_write]
+doc = "Write using SCPI directly.  No readout.  For queries, use `direct_scpi_write`."
+request = [{"name"="query", "type"="string"}]
+respones = "__null__"
 
 [installation]
 PyPI = "https://pypi.org/project/yaqd-thorlabs"
