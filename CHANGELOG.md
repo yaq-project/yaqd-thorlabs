@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+- PM-series power meter support (tested on pm100)
+
 ## [2021.3.0]
 
 ### Fixed
