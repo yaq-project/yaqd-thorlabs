@@ -67,7 +67,10 @@
             "default": null,
             "doc": "Serial number for the particular device represented by the daemon",
             "origin": "is-daemon",
-            "type": "string"
+            "type": [
+                "null",
+                "string"
+            ]
         }
     },
     "doc": "Daemon for the Thorlabs PS series power meters\n",

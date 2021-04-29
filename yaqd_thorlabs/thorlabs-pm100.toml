@@ -19,10 +19,6 @@ symbols = ["POW", "CURR", "VOLT", "ENER", "FREQ", "PDEN", "EDEN", "RES", "TEMP"]
 
 [config]
 
-[config.serial]
-type = "string"
-default = "__null__"
-
 [config.averaging]
 type = "int"
 doc = """Apply a digital filter to readout. \
