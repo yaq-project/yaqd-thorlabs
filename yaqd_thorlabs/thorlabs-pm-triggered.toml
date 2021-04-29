@@ -29,6 +29,11 @@ default = 1
 
 [state]
 
+[state.wavelength]
+type = ["float", "null"]
+doc = "Correction wavelength (applies to photodiodes only)"
+default = "__null__"
+
 
 [messages]
 

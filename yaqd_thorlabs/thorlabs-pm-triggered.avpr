@@ -231,7 +231,16 @@
     },
     "protocol": "thorlabs-pm-triggered",
     "requires": [],
-    "state": {},
+    "state": {
+        "wavelength": {
+            "default": null,
+            "doc": "Correction wavelength (applies to photodiodes only)",
+            "type": [
+                "float",
+                "null"
+            ]
+        }
+    },
     "traits": [
         "has-measure-trigger",
         "is-daemon",
