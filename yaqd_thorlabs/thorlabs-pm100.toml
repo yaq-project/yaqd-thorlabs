@@ -1,6 +1,6 @@
 protocol = "thorlabs-pm100"
 doc = """
-Daemon for the Thorlabs LTS-300 stage
+Daemon for the Thorlabs PS series power meters
 """
 traits = ["has-measure-trigger", "is-sensor", "is-daemon"]
 hardware = ["thorlabs:pm100"]
@@ -27,16 +27,8 @@ default = "__null__"
 type = "int"
 doc = """Apply a digital filter to readout. \
 One sample takes ~0.3ms. \
-Averaging does not affect device readout rate. \
 """
 default = 1
-
-[config.sampling_interval]
-type = "float"
-doc = """Time, in seconds, between sample measurements. \
-To ensure measurement is synchronous, make sure wait is that device readout time. \
-"""
-default = 0.0
 
 
 [state]
@@ -48,7 +40,6 @@ default = 0.0
 doc = "Query using SCPI directly.  SCPI query only.  For commands, use `direct_scpi_write`."
 request = [{"name"="query", "type"="string"}]
 response = "string"
-
 
 [messages.direct_scpi_write]
 doc = "Write using SCPI directly.  No readout.  For queries, use `direct_scpi_write`."

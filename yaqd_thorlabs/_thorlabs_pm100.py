@@ -31,25 +31,30 @@ MeterInfo = namedtuple(
     ["maker", "model", "serial", "firmware_version"]
 )
 
+pm_units = {
+    "power": "W",
+    "current": "A",
+    "voltage": "V",
+    "energy": "J",
+    "frequency": "Hz",
+    # "intensity": "W/cm^2",
+    # "fluence": "J/cm^2",
+    "resistance": "Ohm",
+    "temperature": "C"
+}
+
+
+def to_bitstring(string):
+    """first item is lsb
+    """
+    return f"{int(string):b}"[::-1]
+
 
 class ThorlabsPM100(HasMeasureTrigger, IsSensor):
     _kind = "thorlabs-pm100"
 
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
-        self._channel_names = ["power"]
-        self._channel_shapes = {"power": []}
-        self._channel_units = {
-            "power": "W",
-            "current": "A",
-            "voltage": "V",
-            "energy": "J",
-            "frequency": "Hz",
-            "intensity": "W/cm^2",
-            "fluence": "J/cm^2",
-            "resistance": "Ohm",
-            "temperature": "C",
-        }
 
         if sys.platform.startswith("win32"):
             rm = pyvisa.ResourceManager() # use ni-visa backend
@@ -73,29 +78,32 @@ class ThorlabsPM100(HasMeasureTrigger, IsSensor):
             raise ConnectionError(f"No resources match.  Found the following resources: {resources}.")
         # initiate configuration
         self.update_sensor()
-        self.wait = self._config["wait"]
-        self.inst.write(f"SENSe:AVERage:COUNt {self._config['averaging']}")
+        self.averaging = self._config["averaging"]
+        self.inst.write(f"*CLS; SENSe:AVERage:COUNt {self.averaging}")
+        self._check_inst()
+        opc = self.inst.query("*OPC?")
+        self.logger.debug(f"opc? {opc}")
         self.logger.debug("sample average: " + self.inst.query("SENSe:AVERage:COUNt?")[:-1])
         self.inst.write(f"CONF:{self._config['readout']}")
-
-    def _configure_measurement(self):
-        self.inst.write("ABORt")
-        self.inst.write("STAT:OPER?")
-        self.inst.write("INIT")
-
+        self._check_inst()
+        
     async def _measure(self):
-        self._configure_measurement()
-        await asyncio.sleep(self.wait)
         start = time.time()
-        while True:
-            try:
-                out = self.inst.query("FETCh?")[:-1]
+        self.inst.write("ABORt; INIT")
+        self._check_inst()
+        await asyncio.sleep(4e-4 * self.averaging)  # important to wait for requests
+        for _ in range(10):
+            status = int(self.inst.query("STAT:OPER?")[:-1])
+            out = float(self.inst.query("FETCh?")[:-1])
+            if int(f"{status:10b}"[-10]):
                 end = time.time()
+                self.logger.debug(f"dt: {(end-start):0.3f}, sig {out:1.6f}")
                 break
-            except Exception as err:
-                self.logger.error(err)
-                time.sleep(0.1)
-        self.logger.debug(f"dt: {end-start}, sig {out}")
+            self.logger.debug(f"status: {status}, out {out}")
+            time.sleep(0.01)
+        else:
+            self.logger.log("errored out!")
+            return self._measure()
         return {"power": float(out)}
 
     def direct_scpi_query(self, query:str) -> str:
@@ -109,12 +117,53 @@ class ThorlabsPM100(HasMeasureTrigger, IsSensor):
 
     def update_sensor(self):
         sensor_info = self.inst.query("SYSTem:SENSor:IDN?")[:-1].split(",")
-        flag_bitmap = f"{int(sensor_info[-1]):b}"
-        flags = [sensor_flags[i] for i, x in enumerate(flag_bitmap[::-1]) if int(x)]
-        sensor_info[-1] = flags
-        self.logger.info(sensor_info)
-        self.sensor_info = SensorInfo(*sensor_info)
+        flag_bitstring = to_bitstring(sensor_info.pop(-1))
+        flags = [sensor_flags[i] for i, x in enumerate(flag_bitstring) if int(x)]
+        self.sensor_info = SensorInfo(*sensor_info, flags)
         self.logger.debug(self.sensor_info)
+        _channel_units = {}
+        _channel_names = []
+        if "is_power_sensor" in flags:
+            self.logger.debug("power sensor")
+            _channel_names.append("power")
+            _channel_units["power"] = "W"
+        else:
+            raise NotImplementedError("Only power sensors are currently supported.")
+        if "wavelength_settable" in flags:
+            self._state["wavelength"] = self.inst.query("SENSe:CORRection:WAVelength?")
+            self.logger.debug(f"wavelength {self._state['wavelength']} nm")
+        self._channel_names = _channel_names
+        self._channel_units = _channel_units
+        self._channel_shapes = {k:[] for k in self._channel_names}
+
+    def set_wavelength(self, wavelength):
+        assert "wavelength_settable" in self.sensor_info["flags"]
+        self.inst.write(f"SENSe:CORRection:WAVelength {float(wavelength)}")
+        self._state["wavelength"] = self.inst.query("SENSe:CORRection:WAVelength?")
+        self.logger.debug(f"new wavelength: {self._state['wavelength']} nm")
+
+    def _check_inst(self):
+        errno, err = self.inst.query("SYST:ERR?")[:-1].split(",")
+        if int(errno) == 0:
+            return
+        self.logger.error(err)
+
+    if False:
+        def _query(self, query:str):
+            """wrapper function to remove newline. 
+            TODO: use event register to make sure signals do not cross
+            """
+            return self.inst.query(query)[:-1]
+
+        def _write(self, write:str):
+            """write wrapper
+            TODO: use event register to ensure signals do not cross
+            """
+            self.inst.write(write)
+            errs = self.inst.query("SYST:ERR?")[:-1]
+            self.logger.debug(errs)
+            time.sleep(0.1)
+            return
 
     def close(self):
         self.inst.close()

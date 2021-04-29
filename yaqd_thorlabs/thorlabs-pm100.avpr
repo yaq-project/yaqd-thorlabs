@@ -2,7 +2,7 @@
     "config": {
         "averaging": {
             "default": 1,
-            "doc": "Apply a digital filter to readout. One sample takes ~0.3ms. Averaging does not affect device readout rate. ",
+            "doc": "Apply a digital filter to readout. One sample takes ~0.3ms. ",
             "type": "int"
         },
         "enable": {
@@ -63,11 +63,6 @@
             "origin": "is-daemon",
             "type": "int"
         },
-        "sampling_interval": {
-            "default": 0.0,
-            "doc": "Time, in seconds, between sample measurements. To ensure measurement is synchronous, make sure wait is that device readout time. ",
-            "type": "float"
-        },
         "serial": {
             "default": null,
             "doc": "Serial number for the particular device represented by the daemon",
@@ -75,7 +70,7 @@
             "type": "string"
         }
     },
-    "doc": "Daemon for the Thorlabs LTS-300 stage\n",
+    "doc": "Daemon for the Thorlabs PS series power meters\n",
     "hardware": [
         "thorlabs:pm100"
     ],
