@@ -18,7 +18,7 @@ This package contains the following daemon(s):
 - https://yaq.fyi/daemons/thorlabs-kst101
 - https://yaq.fyi/daemons/thorlabs-lts150
 - https://yaq.fyi/daemons/thorlabs-lts300
-- https://yaq.fyi/daemons/thorlabs-pm100
+- https://yaq.fyi/daemons/thorlabs-pm-triggered
 
 ## Using Hardware Controllers: Windows and APT
 
@@ -31,4 +31,4 @@ On the Advanced tab, check the box that says Load VCP (VCP stands for Virtual CO
 Unplug and replug the USB cable to make it load the COM Port.
 
 ## Sensors use PyVISA
-For sensor hardware (PM100), this package uses PyVISA.
+For sensor hardware (Thorlabs PM series), this package uses PyVISA.

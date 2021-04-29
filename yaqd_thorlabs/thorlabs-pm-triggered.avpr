@@ -75,7 +75,7 @@
     },
     "doc": "Daemon for the Thorlabs PS series power meters\n",
     "hardware": [
-        "thorlabs:pm100"
+        "thorlabs:pm"
     ],
     "installation": {
         "PyPI": "https://pypi.org/project/yaqd-thorlabs",
@@ -83,7 +83,7 @@
     },
     "links": {
         "bugtracker": "https://gitlab.com/yaq/yaqd-thorlabs/issues",
-        "manufacturer": "https://www.thorlabs.com/thorproduct.cfm?partnumber=PM100D",
+        "manufacturer": "https://www.thorlabs.com/",
         "source": "https://gitlab.com/yaq/yaqd-thorlabs/"
     },
     "messages": {
@@ -229,7 +229,7 @@
             "response": "null"
         }
     },
-    "protocol": "thorlabs-pm100",
+    "protocol": "thorlabs-pm-triggered",
     "requires": [],
     "state": {},
     "traits": [

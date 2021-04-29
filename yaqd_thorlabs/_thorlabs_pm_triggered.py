@@ -1,4 +1,4 @@
-__all__ = ["ThorlabsPM100"]
+__all__ = ["ThorlabsPMTriggered"]
 
 import asyncio
 from collections import namedtuple
@@ -50,8 +50,8 @@ def to_bitstring(string):
     return f"{int(string):b}"[::-1]
 
 
-class ThorlabsPM100(HasMeasureTrigger, IsSensor):
-    _kind = "thorlabs-pm100"
+class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
+    _kind = "thorlabs-pm-triggered"
 
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)

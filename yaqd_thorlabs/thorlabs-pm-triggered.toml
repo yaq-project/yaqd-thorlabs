@@ -1,14 +1,14 @@
-protocol = "thorlabs-pm100"
+protocol = "thorlabs-pm-triggered"
 doc = """
 Daemon for the Thorlabs PS series power meters
 """
 traits = ["has-measure-trigger", "is-sensor", "is-daemon"]
-hardware = ["thorlabs:pm100"]
+hardware = ["thorlabs:pm"]
 
 [links]
 source = "https://gitlab.com/yaq/yaqd-thorlabs/"
 bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
-manufacturer = "https://www.thorlabs.com/thorproduct.cfm?partnumber=PM100D"
+manufacturer = "https://www.thorlabs.com/"
 
 
 [[types]]
