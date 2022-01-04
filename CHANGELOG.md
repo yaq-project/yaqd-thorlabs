@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- support for MPC320 motorized fiber polarization controller
+
+### Changed
+- apt_motor update_state now reads position from MGMSG_MOT_GET_USTATUSUPDATE
+- serial dispatcher now respects chan_ident
+
 ## [2021.10.0]
 
 ### Changed
