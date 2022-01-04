@@ -31,9 +31,16 @@ class SerialDispatcher:
 
         unpacker = apt.Unpacker(self.port)
         async for msg in unpacker:
-            if msg.source in self.workers:
-                self.workers[msg.source].put_nowait(msg)
-            else:
+            sent = 0
+            for key, worker in self.workers.items():
+                source, chan_ident = key
+                if source != msg.source:
+                    continue
+                if hasattr(msg, "chan_ident") and msg.chan_ident != chan_ident:
+                    continue
+                worker.put_nowait(msg)
+                sent += 1
+            if not sent:
                 logger.error(f"Unexpected reply: {msg}")
             await asyncio.sleep(0)
 

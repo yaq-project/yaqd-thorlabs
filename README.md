@@ -18,6 +18,7 @@ This package contains the following daemon(s):
 - https://yaq.fyi/daemons/thorlabs-kst101
 - https://yaq.fyi/daemons/thorlabs-lts150
 - https://yaq.fyi/daemons/thorlabs-lts300
+- https://yaq.fyi/daemons/thorlabs-mpc320
 
 ## Windows and APT
 
