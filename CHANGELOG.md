@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- pin thorlabs-apt-protocol>=29.0.0 (older versions do not work with MPC320)
+
 ## [2022.1.0]
 
 ### Added
