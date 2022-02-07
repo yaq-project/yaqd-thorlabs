@@ -2,7 +2,7 @@ protocol = "thorlabs-pm-triggered"
 doc = """
 Daemon for the Thorlabs PS series power meters
 """
-traits = ["has-measure-trigger", "is-sensor", "is-daemon"]
+traits = ["uses-serial", "has-measure-trigger", "is-sensor", "is-daemon"]
 hardware = ["thorlabs:pm"]
 
 [links]
@@ -37,18 +37,7 @@ type = ["null", "float"]
 doc = "Correction wavelength (applies to photodiodes only)"
 default = "__null__"
 
-
 [messages]
-
-[messages.direct_scpi_query]
-doc = "Query using SCPI directly.  SCPI query only.  For commands, use `direct_scpi_write`."
-request = [{"name"="query", "type"="string"}]
-response = "string"
-
-[messages.direct_scpi_write]
-doc = "Write using SCPI directly.  No readout.  For queries, use `direct_scpi_write`."
-request = [{"name"="query", "type"="string"}]
-respones = "__null__"
 
 [installation]
 PyPI = "https://pypi.org/project/yaqd-thorlabs"

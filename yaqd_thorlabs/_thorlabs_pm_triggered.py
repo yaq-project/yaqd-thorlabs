@@ -4,7 +4,7 @@ import asyncio
 from collections import namedtuple
 import sys
 from typing import Dict, Any, List
-from yaqd_core import HasMeasureTrigger, IsSensor
+from yaqd_core import HasMeasureTrigger, IsSensor, UsesSerial
 import pyvisa
 import time
 
@@ -49,7 +49,7 @@ def to_bitstring(string):
     return f"{int(string):b}"[::-1]
 
 
-class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
+class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
     _kind = "thorlabs-pm-triggered"
 
     def __init__(self, name, config, config_filepath):
@@ -75,7 +75,9 @@ class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
                     self.logger.info(self.power_meter_info)
                     break
         else:
-            raise ConnectionError(f"No resources match.  Found the following resources: {resources}.")
+            raise ConnectionError(
+                f"No resources match.  Found the following resources: {resources}."
+            )
         # initiate configuration
         self.update_sensor()
         self.averaging = self._config["averaging"]
@@ -106,14 +108,9 @@ class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
             return self._measure()
         return {"power": float(out)}
 
-    def direct_scpi_query(self, query:str) -> str:
-        if query.endswith("?"):
-            return self.inst.query(query)
-        else:
-            raise ValueError(f"string {query} is not a query.")
-
-    def direct_scpi_write(self, write:str) -> None:
-        self.inst.write(write)
+    def direct_serial_write(self, write:bytes) -> None:
+        out = self.inst.write(write.decode())
+        self.logger.info(f"{write} : {out}")
 
     def update_sensor(self):
         sensor_info = self.inst.query("SYSTem:SENSor:IDN?")[:-1].split(",")
