@@ -1,0 +1,44 @@
+protocol = "thorlabs-pm-triggered"
+doc = """
+Daemon for the Thorlabs PS series power meters
+"""
+traits = ["uses-serial", "has-measure-trigger", "is-sensor", "is-daemon"]
+hardware = ["thorlabs:pm"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-thorlabs/"
+bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+manufacturer = "https://www.thorlabs.com/"
+
+
+[[types]]
+name = "readout_type"
+type = "enum"
+symbols = ["POW", "CURR", "VOLT", "ENER", "FREQ", "PDEN", "EDEN", "RES", "TEMP"]
+
+
+[config]
+
+[config.averaging]
+type = "int"
+doc = """Apply a digital filter to readout. \
+One sample takes ~0.3ms. \
+"""
+default = 1
+
+[config.readout]
+type = "readout_type"
+default="POW"
+
+[state]
+
+[state.wavelength]
+type = ["null", "float"]
+doc = "Correction wavelength (applies to photodiodes only)"
+default = "__null__"
+
+[messages]
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-thorlabs"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-thorlabs"

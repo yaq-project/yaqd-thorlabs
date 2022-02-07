@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- PM-series power meter support (tested on pm100)
+
 ### Fixed
 - pin thorlabs-apt-protocol>=29.0.0 (older versions do not work with MPC320)
 
