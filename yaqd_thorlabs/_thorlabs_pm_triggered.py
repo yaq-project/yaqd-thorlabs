@@ -110,7 +110,7 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
 
     def direct_serial_write(self, write:bytes) -> None:
         out = self.inst.write(write.decode())
-        self.logger.info(f"{write} : {out}")
+        self.logger.info(f"{write.decode()} : {out}")
 
     def update_sensor(self):
         sensor_info = self.inst.query("SYSTem:SENSor:IDN?")[:-1].split(",")
