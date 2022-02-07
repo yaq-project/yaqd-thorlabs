@@ -1,7 +1,7 @@
 {
     "config": {
         "automatic_status_updates": {
-            "default": true,
+            "default": false,
             "doc": "Use the thorlabs apt firmware automatic status updates, otherwise poll",
             "type": "boolean"
         },
@@ -11,13 +11,12 @@
             "type": "int"
         },
         "chan_ident": {
-            "default": 1,
-            "doc": "Channel identifier for apt messages (almost always 0x01)",
+            "doc": "Channel identifier for apt messages. Note channels go as 0x01, 0x02, 0x04, 0x08.",
             "type": "int"
         },
         "dest": {
             "default": 80,
-            "doc": "Destination for apt messages (0x50 for single bay controllers)",
+            "doc": "Destination for apt messages (0x50 for generic USB hardware unit)",
             "type": "int"
         },
         "enable": {
@@ -70,7 +69,7 @@
             ]
         },
         "model": {
-            "default": "K10CR1",
+            "default": "MPC320",
             "origin": "is-daemon",
             "type": [
                 "null",
@@ -113,7 +112,7 @@
             "type": "int"
         },
         "steps_per_unit": {
-            "default": 136533.33333333334,
+            "default": 8.33333333,
             "type": "float"
         },
         "units": {
@@ -121,9 +120,9 @@
             "type": "string"
         }
     },
-    "doc": "Daemon for the Thorlabs K10CR1 rotational stage\n",
+    "doc": "Daemon for the Thorlabs MPC320 motorized fiber polarization controller.\n",
     "hardware": [
-        "thorlabs:k10cr1"
+        "thorlabs:mpc320"
     ],
     "installation": {
         "PyPI": "https://pypi.org/project/yaqd-thorlabs",
@@ -131,7 +130,7 @@
     },
     "links": {
         "bugtracker": "https://gitlab.com/yaq/yaqd-thorlabs/issues",
-        "manufacturer": "https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=8750&pn=K10CR1",
+        "manufacturer": "https://www.thorlabs.com/thorproduct.cfm?partnumber=MPC320",
         "source": "https://gitlab.com/yaq/yaqd-thorlabs/"
     },
     "messages": {
@@ -288,7 +287,7 @@
             "units_getter": "get_units"
         }
     },
-    "protocol": "thorlabs-k10cr1",
+    "protocol": "thorlabs-mpc320",
     "requires": [],
     "state": {
         "destination": {

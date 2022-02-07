@@ -17,10 +17,6 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
     def __init__(self, name, config, config_filepath):
         self._source = config["source"]
         self._dest = config["dest"]
-        # Very few hardware actually use chan_ident as anything other than 0x01
-        # Until proven desired, I am not going to code for the idea of chan ident
-        # being the only thing separating daemons, which manifests in the serial dispatcher
-        # -- KFS 2020-06-08
         self._chan_ident = config["chan_ident"]
         self._steps_per_unit = config["steps_per_unit"]
 
@@ -41,7 +37,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
             self._serial.port.rts = False
             ThorlabsAptMotor.serial_dispatchers[config["serial_port"]] = self._serial
         self._read_queue = asyncio.Queue()
-        self._serial.workers[self._dest] = self._read_queue
+        self._serial.workers[self._dest, self._chan_ident] = self._read_queue
 
         super().__init__(name, config, config_filepath)
 
@@ -88,9 +84,10 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
             try:
                 reply = await self._read_queue.get()
                 # mot_move_completed, mot_get_statusupdate, mot_get_dcstatusupdate, mot_get_statusbits
-                if reply.msgid in (0x0464, 0x0481, 0x042A):
-                    self._state["position"] = self.steps_to_units(reply.position)
-                    self._busy = reply.moving_forward or reply.moving_reverse or reply.homing
+                if reply.msgid in (0x0464, 0x0481, 0x042A, 0x0491):
+                    if hasattr(reply, "position"):  # might be short, that's not an error...
+                        self._state["position"] = self.steps_to_units(reply.position)
+                        self._busy = reply.moving_forward or reply.moving_reverse or reply.homing
                 # mot_move_homed
                 elif reply.msgid == 0x0444:
                     self._home_event.set()

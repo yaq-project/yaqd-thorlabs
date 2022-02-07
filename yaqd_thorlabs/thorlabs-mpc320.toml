@@ -1,0 +1,35 @@
+protocol = "thorlabs-mpc320"
+doc = """
+Daemon for the Thorlabs MPC320 motorized fiber polarization controller.
+"""
+traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+hardware = ["thorlabs:mpc320"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-thorlabs/"
+bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+manufacturer = "https://www.thorlabs.com/thorproduct.cfm?partnumber=MPC320"
+
+[config]
+source.type = "int"
+source.default = 1
+source.doc = "Source for apt messages (almost always 0x01)"
+dest.type = "int"
+dest.default = 0x50
+dest.doc = "Destination for apt messages (0x50 for generic USB hardware unit)"
+chan_ident.type = "int"
+chan_ident.doc = "Channel identifier for apt messages. Note channels go as 0x01, 0x02, 0x04, 0x08."
+automatic_status_updates.type = "boolean"
+automatic_status_updates.default = false
+automatic_status_updates.doc = "Use the thorlabs apt firmware automatic status updates, otherwise poll"
+units.type = "string"
+units.default = "deg"
+baud_rate.default = 115200
+make.default = "Thorlabs"
+model.default = "MPC320"
+steps_per_unit.type = "float"
+steps_per_unit.default = 8.33333333
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-thorlabs"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-thorlabs"

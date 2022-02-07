@@ -5,7 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
 - PM-series power meter support (tested on pm100)
+
+### Fixed
+- pin thorlabs-apt-protocol>=29.0.0 (older versions do not work with MPC320)
+
+## [2022.1.0]
+
+### Added
+- support for MPC320 motorized fiber polarization controller
+
+### Changed
+- apt_motor update_state now reads position from MGMSG_MOT_GET_USTATUSUPDATE
+- serial dispatcher now respects chan_ident
+
+## [2021.10.0]
+
+### Changed
+- rerender avprs based on recent traits update
 
 ## [2021.3.0]
 
@@ -57,7 +75,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.3.0...master
+[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.1.0...main
+[2022.1.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.10.0...v2022.1.0
+[2021.10.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.3.0...v2021.10.0
 [2021.3.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.2.0...v2021.3.0
 [2021.2.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.12.0...v2021.2.0
 [2020.12.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2020.11.1...v2020.12.0

@@ -5,7 +5,7 @@
 [![yaq](https://img.shields.io/badge/framework-yaq-orange)](https://yaq.fyi/)
 [![black](https://img.shields.io/badge/code--style-black-black)](https://black.readthedocs.io/)
 [![ver](https://img.shields.io/badge/calver-YYYY.0M.MICRO-blue)](https://calver.org/)
-[![log](https://img.shields.io/badge/change-log-informational)](https://gitlab.com/yaq/yaqd-thorlabs/-/blob/master/CHANGELOG.md)
+[![log](https://img.shields.io/badge/change-log-informational)](https://gitlab.com/yaq/yaqd-thorlabs/-/blob/main/CHANGELOG.md)
 
 yaq daemons for thorlabs hardware
 
@@ -18,6 +18,7 @@ This package contains the following daemon(s):
 - https://yaq.fyi/daemons/thorlabs-kst101
 - https://yaq.fyi/daemons/thorlabs-lts150
 - https://yaq.fyi/daemons/thorlabs-lts300
+- https://yaq.fyi/daemons/thorlabs-mpc320
 - https://yaq.fyi/daemons/thorlabs-pm-triggered
 
 ## Using Hardware Controllers: Windows and APT
