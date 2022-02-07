@@ -5,7 +5,6 @@ from collections import namedtuple
 import sys
 from typing import Dict, Any, List
 from yaqd_core import HasMeasureTrigger, IsSensor
-# from yaqd_scpi import SCPISensor  # inherit from this?
 import pyvisa
 import time
 
@@ -65,6 +64,7 @@ class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
         resources = rm.list_resources()
         self.logger.debug(resources)
         for resource in resources:
+            self.logger.debug(resources)
             port, vender, product, serial, device = resource.split("::")
             if (vender == "0x1313") and (device == "INSTR"):  # thorlabs instrument
                 # if serial is not specified; grab the first valid device
@@ -100,9 +100,9 @@ class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
                 self.logger.debug(f"dt: {(end-start):0.3f}, sig {out:1.6f}")
                 break
             self.logger.debug(f"status: {status}, out {out}")
-            time.sleep(0.01)
+            await asyncio.sleep(0)
         else:
-            self.logger.log("errored out!")
+            self.logger.debug("measure timeout; retrying")
             return self._measure()
         return {"power": float(out)}
 
@@ -130,7 +130,7 @@ class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
         else:
             raise NotImplementedError("Only power sensors are currently supported.")
         if "wavelength_settable" in flags:
-            self._state["wavelength"] = self.inst.query("SENSe:CORRection:WAVelength?")
+            self._state["wavelength"] = float(self.inst.query("SENSe:CORRection:WAVelength?")[:-1])
             self.logger.debug(f"wavelength {self._state['wavelength']} nm")
         self._channel_names = _channel_names
         self._channel_units = _channel_units
@@ -147,23 +147,6 @@ class ThorlabsPMTriggered(HasMeasureTrigger, IsSensor):
         if int(errno) == 0:
             return
         self.logger.error(err)
-
-    if False:
-        def _query(self, query:str):
-            """wrapper function to remove newline. 
-            TODO: use event register to make sure signals do not cross
-            """
-            return self.inst.query(query)[:-1]
-
-        def _write(self, write:str):
-            """write wrapper
-            TODO: use event register to ensure signals do not cross
-            """
-            self.inst.write(write)
-            errs = self.inst.query("SYST:ERR?")[:-1]
-            self.logger.debug(errs)
-            time.sleep(0.1)
-            return
 
     def close(self):
         self.inst.close()

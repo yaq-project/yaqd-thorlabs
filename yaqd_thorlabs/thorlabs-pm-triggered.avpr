@@ -63,6 +63,10 @@
             "origin": "is-daemon",
             "type": "int"
         },
+        "readout": {
+            "default": "POW",
+            "type": "readout_type"
+        },
         "serial": {
             "default": null,
             "doc": "Serial number for the particular device represented by the daemon",
@@ -236,8 +240,8 @@
             "default": null,
             "doc": "Correction wavelength (applies to photodiodes only)",
             "type": [
-                "float",
-                "null"
+                "null",
+                "float"
             ]
         }
     },

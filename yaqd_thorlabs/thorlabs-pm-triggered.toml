@@ -26,11 +26,14 @@ One sample takes ~0.3ms. \
 """
 default = 1
 
+[config.readout]
+type = "readout_type"
+default="POW"
 
 [state]
 
 [state.wavelength]
-type = ["float", "null"]
+type = ["null", "float"]
 doc = "Correction wavelength (applies to photodiodes only)"
 default = "__null__"
 
