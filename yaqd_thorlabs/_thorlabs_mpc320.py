@@ -11,10 +11,12 @@ class ThorlabsMPC320(ThorlabsAptMotor):
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
         self._serial.write(
-            apt.mod_set_chanenablestate(source=self._source,
-                                        dest=self._dest,
-                                        chan_ident=0b0111,  # enables all three motors
-                                        enable_state=0x01)
+            apt.mod_set_chanenablestate(
+                source=self._source,
+                dest=self._dest,
+                chan_ident=0b0111,  # enables all three motors
+                enable_state=0x01,
+            )
         )
         self._state["hw_limits"] = [0, 170]  # no way to read from hardware, as far as I can tell
 

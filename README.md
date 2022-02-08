@@ -19,6 +19,7 @@ This package contains the following daemon(s):
 - https://yaq.fyi/daemons/thorlabs-lts150
 - https://yaq.fyi/daemons/thorlabs-lts300
 - https://yaq.fyi/daemons/thorlabs-mpc320
+- https://yaq.fyi/daemons/thorlabs-ell18
 - https://yaq.fyi/daemons/thorlabs-pm-triggered
 
 ## Using Hardware Controllers: Windows and APT

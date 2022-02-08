@@ -46,6 +46,8 @@ entry:
     - yaqd-thorlabs-lts300 -h
     - yaqd-thorlabs-mpc320 --version
     - yaqd-thorlabs-mpc320 -h
+    - yaqd-thorlabs-ell18 --version
+    - yaqd-thorlabs-ell18 -h
     - yaqd-thorlabs-pm-triggered --version
     - yaqd-thorlabs-pm-triggered -h
 traits:

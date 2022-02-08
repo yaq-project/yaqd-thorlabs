@@ -1,0 +1,33 @@
+protocol = "thorlabs-ell18"
+doc = ""
+traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+hardware = ["thorlabs:ELL18", "thorlabs:ELL18/M"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-thorlabs"
+bugtracker = "https://gitlab.com/yaqyaqd-thorlabs/-/issues"
+manufacturer = "https://www.thorlabs.us/thorproduct.cfm?partnumber=ELL18"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-thorlabs"
+
+[config]
+address.type = "int"
+address.default = 0
+address.doc = "Address for ELL18 messages (default 0)"
+
+scalar.type = "double"
+scalar.default = 398
+scalar.doc = "Conversion factor from motor steps to units"
+
+units.type = "string"
+units.default = "deg"
+
+baud_rate.default = 9600
+make.default = "Thorlabs"
+model.default = "ell18"
+
+[state]
+status.type = "string"
+status.doc = "Device status, translated into text from the get status (gs) command."
+status.default = ""
