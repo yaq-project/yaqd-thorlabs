@@ -1,7 +1,7 @@
 protocol = "thorlabs-ell18"
 doc = ""
 traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
-hardware = ["thorlabs:ELL18", "thorlabs:ELL18/M"]
+hardware = ["thorlabs:ell18", "thorlabs:ell18m"]
 
 [links]
 source = "https://gitlab.com/yaq/yaqd-thorlabs"

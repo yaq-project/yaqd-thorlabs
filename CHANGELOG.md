@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- normalized known hardware in tomls
+
 ## [2022.2.0]
 
 ### Added
