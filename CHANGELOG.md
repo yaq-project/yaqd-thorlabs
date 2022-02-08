@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-##[2022.2.0]
+## [2022.2.0]
 
 ### Added
 - Support for Ell18 Elliptec rotory mount
