@@ -38,6 +38,7 @@ yaqd-thorlabs-kst101="yaqd_thorlabs._thorlabs_kst101:ThorlabsKST101.main"
 yaqd-thorlabs-lts150="yaqd_thorlabs._thorlabs_lts150:ThorlabsLTS150.main"
 yaqd-thorlabs-lts300="yaqd_thorlabs._thorlabs_lts300:ThorlabsLTS300.main"
 yaqd-thorlabs-mpc320="yaqd_thorlabs._thorlabs_mpc320:ThorlabsMPC320.main"
+yaqd-thorlabs-ell18="yaqd_thorlabs._thorlabs_ell18:ThorlabsEll18.main"
 yaqd-thorlabs-pm-triggered="yaqd_thorlabs._thorlabs_pm_triggered:ThorlabsPMTriggered.main"
 
 [tool.black]

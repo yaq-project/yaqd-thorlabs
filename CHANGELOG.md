@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Added
+- Support for Ell18 Elliptec rotory mount
 - PM-series power meter support (tested on pm100)
 
 ### Fixed

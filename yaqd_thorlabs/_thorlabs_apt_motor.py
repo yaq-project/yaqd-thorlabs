@@ -7,12 +7,12 @@ import serial  # type: ignore
 import thorlabs_apt_protocol as apt  # type: ignore
 from yaqd_core import UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon
 
-from ._serial import SerialDispatcher
+from ._serial import SerialDispatcherApt
 
 
 class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon):
     _kind = "thorlabs-apt-motor"
-    serial_dispatchers: Dict[str, SerialDispatcher] = {}
+    serial_dispatchers: Dict[str, SerialDispatcherApt] = {}
 
     def __init__(self, name, config, config_filepath):
         self._source = config["source"]
@@ -23,7 +23,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
         if config["serial_port"] in ThorlabsAptMotor.serial_dispatchers:
             self._serial = ThorlabsAptMotor.serial_dispatchers[config["serial_port"]]
         else:
-            self._serial = SerialDispatcher(
+            self._serial = SerialDispatcherApt(
                 serial.Serial(
                     config["serial_port"],
                     config["baud_rate"],

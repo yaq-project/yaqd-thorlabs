@@ -25,7 +25,26 @@ class SerialDispatcher:
             data = await self.write_queue.get()
             self.port.write(data)
             self.write_queue.task_done()
+            await asyncio.sleep(0.01)
 
+    async def read_dispatch(self):
+        raise NotImplementedError
+
+    def flush(self):
+        self.port.flush()
+
+    def close(self):
+        self.loop.create_task(self._close())
+
+    async def _close(self):
+        await self.write_queue.join()
+        for worker in self.workers.values():
+            await worker.join()
+        for task in self.tasks:
+            task.cancel()
+
+
+class SerialDispatcherApt(SerialDispatcher):
     async def read_dispatch(self):
         import thorlabs_apt_protocol as apt  # type: ignore
 
@@ -44,12 +63,19 @@ class SerialDispatcher:
                 logger.error(f"Unexpected reply: {msg}")
             await asyncio.sleep(0)
 
-    def flush(self):
-        self.port.flush()
 
-    def close(self):
-        self.loop.create_task(self._close())
-
-    async def _close(self):
-        for task in self.tasks:
-            task.cancel()
+class SerialDispatcherEll(SerialDispatcher):
+    async def read_dispatch(self):
+        parse = re.compile(rb"^([0-9a-fA-F])([A-Za-z0-9][A-Za-z0-9])([ -~]*)$")
+        async for line in self.port.areadlines():
+            line = re.sub(rb"\s", b"", line.strip())
+            match = parse.match(line)
+            if match is None:
+                logger.error(f"No match for {line}")
+                continue
+            index, command, args = match.groups()
+            index = int(index, 16)
+            if index in self.workers:
+                self.workers[index].put_nowait((command.decode(), args.decode()))
+            else:
+                logger.error(f"no worker {index}")
