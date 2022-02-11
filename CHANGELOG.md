@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 - normalized known hardware in tomls
+- `yaqd-pm-triggered`: fixed bug where daemon could not recognize Thorlabs instrument ports on some computers.
 
 ## [2022.2.0]
 
