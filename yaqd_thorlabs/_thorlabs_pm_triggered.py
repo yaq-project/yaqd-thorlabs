@@ -64,20 +64,26 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
         resources = rm.list_resources()
         self.logger.debug(resources)
         for resource in resources:
-            self.logger.debug(resources)
-            port, vender, product, serial, device = resource.split("::")
-            if (vender == "0x1313") and (device == "INSTR"):  # thorlabs instrument
+            info = resource.split("::")
+            if len(info) < 5:
+                continue
+            port, vendor, product, serial = info[:4]
+            try:
+                vendor = int(vendor)
+            except ValueError:
+                vendor = int(vendor, 16)
+            if (vendor == 4883) and (self._config["serial"] in [None, serial]):
                 # if serial is not specified; grab the first valid device
-                if self._config["serial"] in [None, serial]:
-                    self.inst = rm.open_resource(resource)
-                    self.resource = resource
-                    self.power_meter_info = MeterInfo(*self.inst.query("*IDN?")[:-1].split(","))
-                    self.logger.info(self.power_meter_info)
-                    break
+                self.inst = rm.open_resource(resource)
+                self.resource = resource
+                self.power_meter_info = MeterInfo(*self.inst.query("*IDN?")[:-1].split(","))
+                self.logger.info(self.power_meter_info)
+                break
         else:
-            raise ConnectionError(
-                f"No resources match.  Found the following resources: {resources}."
-            )
+            self.logger.error(f"No resources match. Found the following resources: {resources}.")
+            self.inst = None
+            self.shutdown()
+            return
         # initiate configuration
         self.update_sensor()
         self.averaging = self._config["averaging"]
@@ -146,4 +152,6 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
         self.logger.error(err)
 
     def close(self):
+        if self.inst is None:
+            return
         self.inst.close()
