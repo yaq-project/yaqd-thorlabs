@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.2.1]
+
 ### Fixed
 - normalized known hardware in tomls
 - `yaqd-pm-triggered`: fixed bug where daemon could not recognize Thorlabs instrument ports on some computers.
@@ -82,7 +84,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.2.0...main
+[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.2.1...main
+[2022.2.1]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.1.0...v2022.2.1
 [2022.2.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.1.0...v2022.2.0
 [2022.1.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.10.0...v2022.1.0
 [2021.10.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.3.0...v2021.10.0
