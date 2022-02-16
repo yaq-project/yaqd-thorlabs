@@ -1,0 +1,48 @@
+protocol = "thorlabs-pax1000"
+doc = """
+Daemon for Thorlabs PAX1000 series polarimeters.
+"""
+traits = ["uses-serial", "has-measure-trigger", "is-sensor", "is-daemon"]
+hardware = ["thorlabs:pax1000ir1"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-thorlabs/"
+bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+manufacturer = "https://www.thorlabs.com/"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-thorlabs"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-thorlabs"
+
+[config]
+
+[config.autorange]
+doc = "Toggle power autoranging."
+type = "boolean"
+default = false
+
+[config.velocity]
+doc = "Velocity in Hz."
+type = "double"
+default = 3
+
+[state]
+
+[messages]
+
+[messages.set_wavelength]
+doc = "Set input wavelength for correction (in nanometers)."
+request = [{"name"="wavelength", "type"="double"}]
+
+[messages.get_wavelength]
+doc = "Get input wavelength for correction (in nanometers)."
+response = "double"
+
+[properties]
+
+[properties.wavelength]
+getter = "get_wavelength"
+setter = "set_wavelength"
+type = "double"
+control_kind = "hinted"
+record_kind = "data"

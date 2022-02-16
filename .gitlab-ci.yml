@@ -48,6 +48,8 @@ entry:
     - yaqd-thorlabs-mpc320 -h
     - yaqd-thorlabs-ell18 --version
     - yaqd-thorlabs-ell18 -h
+    - yaqd-thorlabs-pax1000 --version
+    - yaqd-thorlabs-pax1000 -h
     - yaqd-thorlabs-pm-triggered --version
     - yaqd-thorlabs-pm-triggered -h
 traits:

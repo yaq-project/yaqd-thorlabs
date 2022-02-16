@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- new daaemon for pax1000 polarimeters
+
 ## [2022.2.1]
 
 ### Fixed
