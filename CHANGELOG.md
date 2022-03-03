@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- `yaqd-pm-triggered`: fixed bug where hardware timeouts from measurement were not handled
+
 ### Added
 - new daaemon for pax1000 polarimeters
 

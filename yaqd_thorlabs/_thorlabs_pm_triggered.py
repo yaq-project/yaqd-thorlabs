@@ -97,22 +97,26 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
         
     async def _measure(self):
         start = time.time()
-        self.inst.write("ABORt; INIT")
-        self._check_inst()
-        await asyncio.sleep(4e-4 * self.averaging)  # important to wait for requests
-        for _ in range(10):
-            status = int(self.inst.query("STAT:OPER?")[:-1])
-            out = float(self.inst.query("FETCh?")[:-1])
-            if int(f"{status:10b}"[-10]):
-                end = time.time()
-                self.logger.debug(f"dt: {(end-start):0.3f}, sig {out:1.6f}")
-                break
-            self.logger.debug(f"status: {status}, out {out}")
-            await asyncio.sleep(0)
-        else:
-            self.logger.debug("measure timeout; retrying")
-            return self._measure()
-        return {"power": float(out)}
+        try:
+            self.inst.write("ABORt; INIT")
+            self._check_inst()
+            await asyncio.sleep(4e-4 * self.averaging)  # important to wait for requests
+            for _ in range(10):
+                status = int(self.inst.query("STAT:OPER?")[:-1])
+                out = float(self.inst.query("FETCh?")[:-1])
+                if status & (1 << 9):
+                    end = time.time()
+                    self.logger.debug(f"dt: {(end-start):0.3f}, sig {out:1.6f}")
+                    break
+                self.logger.debug(f"status: {bin(status)} ({status}), out {out}")
+                await asyncio.sleep(0)
+            else:
+                self.logger.error("measure timeout; retrying")
+                return await self._measure()
+            return {"power": float(out)}
+        except Exception as e:  # pyvisa.errors.VisaIOError as e:
+            self.logger.error(e)
+            return await self._measure()
 
     def direct_serial_write(self, write:bytes) -> None:
         out = self.inst.write(write.decode())
