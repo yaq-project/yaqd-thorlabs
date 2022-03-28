@@ -5,8 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.3.0]
+
 ### Fixed
 - `yaqd-pm-triggered`: fixed bug where hardware timeouts from measurement were not handled
+- Rerender AVPR for sensors such that measurment id is an int
 
 ### Added
 - new daaemon for pax1000 polarimeters
@@ -90,8 +93,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.2.1...main
-[2022.2.1]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.1.0...v2022.2.1
+[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.3.0...main
+[2022.3.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.2.1...v2022.3.0
+[2022.2.1]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.2.0...v2022.2.1
 [2022.2.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.1.0...v2022.2.0
 [2022.1.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.10.0...v2022.1.0
 [2021.10.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2021.3.0...v2021.10.0
