@@ -38,6 +38,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
             ThorlabsAptMotor.serial_dispatchers[config["serial_port"]] = self._serial
         self._read_queue = asyncio.Queue()
         self._serial.workers[self._dest, self._chan_ident] = self._read_queue
+        self._move_pending = False
 
         super().__init__(name, config, config_filepath)
 
@@ -56,10 +57,18 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
         return position / self._steps_per_unit
 
     def _set_position(self, position):
+        self._move_pending = True
+        self._loop.create_task(self._clear_queue_and_set(position))
+
+    async def _clear_queue_and_set(self, position):
+        await self._read_queue.join()
         position = self.units_to_steps(position)
         self._serial.write(
             apt.mot_move_absolute(self._dest, self._source, self._chan_ident, position)
         )
+        await asyncio.sleep(0.1)
+        await self._read_queue.join()
+        self._move_pending = False
 
     def home(self):
         self._loop.create_task(self._home())
@@ -73,9 +82,10 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
 
     async def request_status(self):
         while True:
-            self._serial.write(
-                apt.mot_req_statusupdate(self._dest, self._source, self._chan_ident)
-            )
+            if not self._move_pending:
+                self._serial.write(
+                    apt.mot_req_statusupdate(self._dest, self._source, self._chan_ident)
+                )
             await asyncio.sleep(0.2)
 
     async def update_state(self):
@@ -87,7 +97,12 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
                 if reply.msgid in (0x0464, 0x0481, 0x042A, 0x0491):
                     if hasattr(reply, "position"):  # might be short, that's not an error...
                         self._state["position"] = self.steps_to_units(reply.position)
-                        self._busy = reply.moving_forward or reply.moving_reverse or reply.homing
+                        self._busy = (
+                            reply.moving_forward
+                            or reply.moving_reverse
+                            or reply.homing
+                            or self._move_pending
+                        )
                 # mot_move_homed
                 elif reply.msgid == 0x0444:
                     self._home_event.set()
@@ -104,6 +119,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
                     )
                 else:
                     self.logger.info(f"Unhandled reply {reply}")
+                self._read_queue.task_done()
             except Exception as e:
                 self.logger.error(e)
 
