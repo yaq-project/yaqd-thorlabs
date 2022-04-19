@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.4.0]
+
+### Fixed
+- Conditions which could cause busy to be released during motion
+
 ## [2022.3.0]
 
 ### Fixed
@@ -93,7 +98,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.3.0...main
+[Unreleased]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.4.0...main
+[2022.4.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.3.0...v2022.4.0
 [2022.3.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.2.1...v2022.3.0
 [2022.2.1]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.2.0...v2022.2.1
 [2022.2.0]: https://gitlab.com/yaq/yaqd-thorlabs/-/compare/v2022.1.0...v2022.2.0
