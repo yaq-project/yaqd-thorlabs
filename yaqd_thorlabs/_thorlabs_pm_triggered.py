@@ -21,14 +21,10 @@ sensor_flags = [
 ]
 
 SensorInfo = namedtuple(
-    "SensorInfo",
-    ["model", "serial", "last_calibration", "type", "subtype", "flags"]
+    "SensorInfo", ["model", "serial", "last_calibration", "type", "subtype", "flags"]
 )
 
-MeterInfo = namedtuple(
-    "MeterInfo",
-    ["maker", "model", "serial", "firmware_version"]
-)
+MeterInfo = namedtuple("MeterInfo", ["maker", "model", "serial", "firmware_version"])
 
 pm_units = {
     "power": "W",
@@ -39,13 +35,12 @@ pm_units = {
     # "intensity": "W/cm^2",
     # "fluence": "J/cm^2",
     "resistance": "Ohm",
-    "temperature": "C"
+    "temperature": "C",
 }
 
 
 def to_bitstring(string):
-    """first item is lsb
-    """
+    """first item is lsb"""
     return f"{int(string):b}"[::-1]
 
 
@@ -56,7 +51,7 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
         super().__init__(name, config, config_filepath)
 
         if sys.platform.startswith("win32"):
-            rm = pyvisa.ResourceManager() # use ni-visa backend
+            rm = pyvisa.ResourceManager()  # use ni-visa backend
         else:
             rm = pyvisa.ResourceManager("@py")  # use pyvisa-py backend
 
@@ -94,7 +89,7 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
         self.logger.debug("sample average: " + self.inst.query("SENSe:AVERage:COUNt?")[:-1])
         self.inst.write(f"CONF:{self._config['readout']}")
         self._check_inst()
-        
+
     async def _measure(self):
         start = time.time()
         try:
@@ -118,7 +113,7 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
             self.logger.error(e)
             return await self._measure()
 
-    def direct_serial_write(self, write:bytes) -> None:
+    def direct_serial_write(self, write: bytes) -> None:
         out = self.inst.write(write.decode())
         self.logger.info(f"{write.decode()} : {out}")
 
@@ -141,7 +136,7 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
             self.logger.debug(f"wavelength {self._state['wavelength']} nm")
         self._channel_names = _channel_names
         self._channel_units = _channel_units
-        self._channel_shapes = {k:[] for k in self._channel_names}
+        self._channel_shapes = {k: [] for k in self._channel_names}
 
     def set_wavelength(self, wavelength):
         assert "wavelength_settable" in self.sensor_info["flags"]
