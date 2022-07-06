@@ -84,9 +84,9 @@
             "origin": "is-daemon",
             "type": "int"
         },
-        "scalar": {
-            "default": 398,
-            "doc": "Conversion factor from motor steps to units",
+        "offset": {
+            "default": 0.000,
+            "doc": "offset value (degrees) from motor's internal zero position",
             "type": "double"
         },
         "serial": {

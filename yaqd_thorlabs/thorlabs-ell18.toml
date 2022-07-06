@@ -20,6 +20,10 @@ scalar.type = "double"
 scalar.default = 398
 scalar.doc = "Conversion factor from motor steps to units"
 
+offset.type = "double"
+offset.default = 0.000
+offset.doc = "base offset in degrees from reportd zero position to internal zero"
+
 units.type = "string"
 units.default = "deg"
 
