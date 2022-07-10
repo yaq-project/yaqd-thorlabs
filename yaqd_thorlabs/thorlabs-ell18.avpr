@@ -67,6 +67,11 @@
                 "string"
             ]
         },
+        "offset": {
+            "default": 0.0,
+            "doc": "base offset in degrees from reportd zero position to internal zero",
+            "type": "double"
+        },
         "out_of_limits": {
             "default": "closest",
             "doc": "Control behavior of daemon when set_position is given a value outside of limits.",
@@ -84,9 +89,9 @@
             "origin": "is-daemon",
             "type": "int"
         },
-        "offset": {
-            "default": 0.000,
-            "doc": "offset value (degrees) from motor's internal zero position",
+        "scalar": {
+            "default": 398,
+            "doc": "Conversion factor from motor steps to units",
             "type": "double"
         },
         "serial": {

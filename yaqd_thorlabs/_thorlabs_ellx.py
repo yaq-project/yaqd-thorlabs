@@ -53,7 +53,7 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
 
     def _set_position(self, position):
         if not self._homing:
-            pos = round((position+self._offset) * (self._conversion))
+            pos = round((position + self._offset) * (self._conversion))
             pos1 = struct.pack(">l", pos).hex().upper()
             self._serial.write(f"{self._address:X}ma{pos1}\r\n".encode())
 
@@ -72,7 +72,7 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
             if "PO" == comm:
                 position = struct.unpack(">l", bytes.fromhex(val))[0]
                 position /= self._conversion
-                self._state["position"] = float(position-self._offset)
+                self._state["position"] = float(position - self._offset)
             elif "GS" == comm:
                 self._busy = (int(val, 16) != 0) or self._homing
                 self._state["status"] = self.error_dict.get(int(val, 16), "")
