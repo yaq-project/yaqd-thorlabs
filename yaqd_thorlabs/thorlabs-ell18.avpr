@@ -94,11 +94,6 @@
             "doc": "Conversion factor from motor steps to units",
             "type": "double"
         },
-        "scalar": {
-            "default": 398,
-            "doc": "Conversion factor from motor steps to units",
-            "type": "double"
-        },
         "serial": {
             "default": null,
             "doc": "Serial number for the particular device represented by the daemon",
