@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+-- Added offset feature to the Thorlabs- ellx type motor daemons, configured in the config file
+
 ## [2022.4.0]
 
 ### Fixed
