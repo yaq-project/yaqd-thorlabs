@@ -4,8 +4,8 @@ traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:ell18", "thorlabs:ell18m"]
 
 [links]
-source = "https://gitlab.com/yaq/yaqd-thorlabs"
-bugtracker = "https://gitlab.com/yaqyaqd-thorlabs/-/issues"
+source = "https://github.com/yaq-project/yaqd-thorlabs"
+bugtracker = "https://github.com/yaq-project/yaqd-thorlabs/-/issues"
 manufacturer = "https://www.thorlabs.us/thorproduct.cfm?partnumber=ELL18"
 
 [installation]

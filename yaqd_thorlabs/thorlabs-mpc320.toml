@@ -6,8 +6,8 @@ traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:mpc320"]
 
 [links]
-source = "https://gitlab.com/yaq/yaqd-thorlabs/"
-bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+source = "https://github.com/yaq-project/yaqd-thorlabs/"
+bugtracker = "https://github.com/yaq-project/yaqd-thorlabs/issues"
 manufacturer = "https://www.thorlabs.com/thorproduct.cfm?partnumber=MPC320"
 
 [config]
