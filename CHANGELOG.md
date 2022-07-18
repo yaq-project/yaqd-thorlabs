@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- Log levels of serial communication logging
+
+### Fixed
+- Queue problem with ELLX devices which cause busy to toggle early
+
 ## [2022.4.0]
 
 ### Fixed
