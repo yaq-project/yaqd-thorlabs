@@ -1,0 +1,49 @@
+name: run entry points
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip!=22.1.*
+        python -m pip install --upgrade wheel setuptools
+        python -m pip install --upgrade .
+    - name: Test with pytest
+      run: |
+        yaqd-thorlabs-bsc201 --version
+        yaqd-thorlabs-bsc201 -h
+        yaqd-thorlabs-bsc203 --version
+        yaqd-thorlabs-bsc203 -h
+        yaqd-thorlabs-k10cr1 --version
+        yaqd-thorlabs-k10cr1 -h
+        yaqd-thorlabs-kdc101 --version
+        yaqd-thorlabs-kdc101 -h
+        yaqd-thorlabs-kst101 --version
+        yaqd-thorlabs-kst101 -h
+        yaqd-thorlabs-lts150 --version
+        yaqd-thorlabs-lts150 -h
+        yaqd-thorlabs-lts300 --version
+        yaqd-thorlabs-lts300 -h
+        yaqd-thorlabs-mpc320 --version
+        yaqd-thorlabs-mpc320 -h
+        yaqd-thorlabs-ell18 --version
+        yaqd-thorlabs-ell18 -h
+        yaqd-thorlabs-pax1000 --version
+        yaqd-thorlabs-pax1000 -h
+        yaqd-thorlabs-pm-triggered --version
+        yaqd-thorlabs-pm-triggered -h
