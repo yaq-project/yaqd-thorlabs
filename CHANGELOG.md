@@ -106,16 +106,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/yaq/yaqd-thorlabs/compare/v2022.4.0...main
-[2022.4.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2022.3.0...v2022.4.0
-[2022.3.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2022.2.1...v2022.3.0
-[2022.2.1]: https://github.com/yaq/yaqd-thorlabs/compare/v2022.2.0...v2022.2.1
-[2022.2.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2022.1.0...v2022.2.0
-[2022.1.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2021.10.0...v2022.1.0
-[2021.10.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2021.3.0...v2021.10.0
-[2021.3.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2021.2.0...v2021.3.0
-[2021.2.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2020.12.0...v2021.2.0
-[2020.12.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2020.11.1...v2020.12.0
-[2020.11.1]: https://github.com/yaq/yaqd-thorlabs/compare/v2020.11.0...v2020.11.1
-[2020.11.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2020.07.0...v2020.11.0
-[2020.07.0]: https://github.com/yaq/yaqd-thorlabs/compare/v2020.06.0...v2020.07.0
+[Unreleased]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.4.0...main
+[2022.4.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.3.0...v2022.4.0
+[2022.3.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.2.1...v2022.3.0
+[2022.2.1]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.2.0...v2022.2.1
+[2022.2.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.1.0...v2022.2.0
+[2022.1.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2021.10.0...v2022.1.0
+[2021.10.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2021.3.0...v2021.10.0
+[2021.3.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2021.2.0...v2021.3.0
+[2021.2.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2020.12.0...v2021.2.0
+[2020.12.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2020.11.1...v2020.12.0
+[2020.11.1]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2020.11.0...v2020.11.1
+[2020.11.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2020.07.0...v2020.11.0
+[2020.07.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2020.06.0...v2020.07.0
