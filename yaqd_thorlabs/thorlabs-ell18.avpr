@@ -116,9 +116,9 @@
         "PyPI": "https://pypi.org/project/yaqd-thorlabs"
     },
     "links": {
-        "bugtracker": "https://gitlab.com/yaqyaqd-thorlabs/-/issues",
+        "bugtracker": "https://github.com/yaq-project/yaqd-thorlabs/-/issues",
         "manufacturer": "https://www.thorlabs.us/thorproduct.cfm?partnumber=ELL18",
-        "source": "https://gitlab.com/yaq/yaqd-thorlabs"
+        "source": "https://github.com/yaq-project/yaqd-thorlabs"
     },
     "messages": {
         "busy": {
