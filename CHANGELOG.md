@@ -106,7 +106,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.4.0...main
+[Unreleased]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.7.0...main
+[2022.7.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.4.0...v2022.7.0
 [2022.4.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.3.0...v2022.4.0
 [2022.3.0]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.2.1...v2022.3.0
 [2022.2.1]: https://github.com/yaq-project/yaqd-thorlabs/compare/v2022.2.0...v2022.2.1
