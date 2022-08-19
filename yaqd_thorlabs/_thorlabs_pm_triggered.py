@@ -114,8 +114,8 @@ class ThorlabsPMTriggered(UsesSerial, HasMeasureTrigger, IsSensor):
                 else:
                     self.logger.error("measure timeout; retrying")
                     continue
-            except Exception as e:  # pyvisa.errors.VisaIOError as e:
-                self.logger.error(e)
+            except pyvisa.errors.VisaIOError as e:
+                self.logger.error(repr(e))
                 continue
             break
         return {"power": float(out)}
