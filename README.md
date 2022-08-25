@@ -25,7 +25,7 @@ This package contains the following daemon(s):
 
 ## Using Hardware Controllers: Windows and APT
 
-For working with hardware controllers, this package uses the serial interface to APT with help from [thorlabs-apt-protocol](https://gitlab.com/yaq/thorlabs-apt-protocol).
+For working with hardware controllers, this package uses the serial interface to APT with help from [thorlabs-apt-protocol](https://github.com/yaq-project/thorlabs-apt-protocol).
 
 On Windows, you must toggle a driver setting to make the COM port appear:
 
