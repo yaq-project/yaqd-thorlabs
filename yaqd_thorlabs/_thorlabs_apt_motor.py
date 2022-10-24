@@ -5,12 +5,12 @@ from typing import Dict, Any, List
 
 import serial  # type: ignore
 import thorlabs_apt_protocol as apt  # type: ignore
-from yaqd_core import UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon
+from yaqd_core import UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon
 
 from ._serial import SerialDispatcherApt
 
 
-class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon):
+class ThorlabsAptMotor(UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon):
     _kind = "thorlabs-apt-motor"
     serial_dispatchers: Dict[str, SerialDispatcherApt] = {}
 
@@ -43,6 +43,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
         super().__init__(name, config, config_filepath)
 
         self._units = config["units"]
+        self._native_units = self._units
         self._serial.write(apt.hw_no_flash_programming(self._dest, self._source))
         self._serial.write(apt.hw_req_info(self._dest, self._source))
         if config["automatic_status_updates"]:
@@ -78,7 +79,7 @@ class ThorlabsAptMotor(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition,
         self._home_event = asyncio.Event()
         self._serial.write(apt.mot_move_home(self._dest, self._source, self._chan_ident))
         await self._home_event.wait()
-        self.set_position(self._state["destination"])
+        self.set_position(self.get_destination())
 
     async def request_status(self):
         while True:
