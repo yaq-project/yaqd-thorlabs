@@ -5,12 +5,22 @@ from typing import Dict, Any, List
 
 import serial  # type: ignore
 import thorlabs_apt_protocol as apt  # type: ignore
-from yaqd_core import UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon
+from yaqd_core import (
+    UsesUart,
+    UsesSerial,
+    HasTransformedPosition,
+    IsHomeable,
+    HasLimits,
+    HasPosition,
+    IsDaemon,
+)
 
 from ._serial import SerialDispatcherApt
 
 
-class ThorlabsAptMotor(UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon):
+class ThorlabsAptMotor(
+    UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon
+):
     _kind = "thorlabs-apt-motor"
     serial_dispatchers: Dict[str, SerialDispatcherApt] = {}
 

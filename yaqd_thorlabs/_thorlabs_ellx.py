@@ -2,13 +2,23 @@ import asyncio
 from typing import Dict
 import struct
 
-from yaqd_core import UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon
+from yaqd_core import (
+    UsesUart,
+    UsesSerial,
+    HasTransformedPosition,
+    IsHomeable,
+    HasLimits,
+    HasPosition,
+    IsDaemon,
+)
 from yaqd_core import aserial
 
 from ._serial import SerialDispatcherEll
 
 
-class ThorlabsEllx(UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon):
+class ThorlabsEllx(
+    UsesUart, UsesSerial, HasTransformedPosition, IsHomeable, HasLimits, HasPosition, IsDaemon
+):
     _kind = "thorlabs-ellx"
     error_dict = {
         0: "",
