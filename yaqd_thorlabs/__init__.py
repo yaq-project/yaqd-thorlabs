@@ -1,2 +1,2 @@
 """yaq daemons for thorlabs hardware"""
-from .__version__ import *
+from ._version import __version__, __version_tuple__

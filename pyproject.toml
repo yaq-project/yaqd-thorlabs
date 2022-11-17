@@ -1,6 +1,6 @@
 [build-system]
-requires = ["flit_core >=2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["flit_core >=2,<4", "flit_scm"]
+build-backend = "flit_scm:buildapi"
 
 [tool.flit.metadata]
 module = "yaqd_thorlabs"
@@ -64,3 +64,6 @@ exclude = '''
   | dist
 )/
 '''
+
+[tool.setuptools_scm]
+write_to = "yaqd_thorlabs/_version.py"
