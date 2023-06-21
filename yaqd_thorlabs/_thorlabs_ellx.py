@@ -31,6 +31,7 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
 
     def __init__(self, name, config, config_filepath):
         self._homing = True
+        self._move_started = False
         self._ignore_ready = 0
         self._address = config["address"]
         if config["serial_port"] in ThorlabsEllx.serial_dispatchers:
@@ -51,6 +52,7 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
         self._tasks.append(self._loop.create_task(self._consume_from_serial()))
 
     def _set_position(self, position):
+        self._move_started = True
         if not self._homing:
             pos = round(position * (self._conversion))
             pos1 = struct.pack(">l", pos).hex().upper()
@@ -58,7 +60,7 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
 
     async def update_state(self):
         while True:
-            if not self._homing:
+            if not self._homing and not self._move_started:
                 self._serial.write(f"{self._address:X}gs\r\n".encode())
                 self._serial.write(f"{self._address:X}gp\r\n".encode())
             await asyncio.sleep(0.2)
@@ -66,22 +68,24 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
     async def _consume_from_serial(self):
         while True:
             comm, val = await self._read_queue.get()
-            self.logger.info(f"incoming serial: {comm} {val}")
+            self.logger.debug(f"incoming serial: {comm} {val}")
 
             if "PO" == comm:
                 position = struct.unpack(">l", bytes.fromhex(val))[0]
                 position /= self._conversion
                 self._state["position"] = position
             elif "GS" == comm:
-                self._busy = (int(val, 16) != 0) or self._homing
+                self._busy = (int(val, 16) != 0) or self._homing or self._move_started
                 self._state["status"] = self.error_dict.get(int(val, 16), "")
                 if int(val, 16) not in (0, 9):
                     # ignore normal busy/ready mode, log any other error
                     self.logger.error(f"ERROR CODE: {self._state['status']}")
             else:
-                self.logger.info(f"Unhandled serial response: {comm}{val}")
+                self.logger.warning(f"Unhandled serial response: {comm}{val}")
 
             self._read_queue.task_done()
+            if self._read_queue.empty():
+                self._move_started = False
 
     def home(self):
         self._busy = True

@@ -14,7 +14,7 @@ class ThorlabsPAX1000(UsesSerial, HasMeasureTrigger, IsSensor):
         super().__init__(name, config, config_filepath)
 
         if sys.platform.startswith("win32"):
-            rm = pyvisa.ResourceManager() # use ni-visa backend
+            rm = pyvisa.ResourceManager()  # use ni-visa backend
         else:
             rm = pyvisa.ResourceManager("@py")  # use pyvisa-py backend
 
@@ -35,15 +35,17 @@ class ThorlabsPAX1000(UsesSerial, HasMeasureTrigger, IsSensor):
             )
 
         # channels
-        self._channel_units = {"revisions": None,
-                               "timestamp": None,
-                               "adc_min": None,
-                               "adc_max": None,
-                               "rev_time": None,
-                               "theta": "radian",
-                               "eta": "radian",
-                               "dop": None,
-                               "ptotal": None}
+        self._channel_units = {
+            "revisions": None,
+            "timestamp": None,
+            "adc_min": None,
+            "adc_max": None,
+            "rev_time": None,
+            "theta": "radian",
+            "eta": "radian",
+            "dop": None,
+            "ptotal": None,
+        }
         self._channel_names = list(self._channel_units.keys())
 
         # initialize hardware

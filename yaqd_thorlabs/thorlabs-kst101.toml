@@ -6,8 +6,8 @@ traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:kst101"]
 
 [links]
-source = "https://gitlab.com/yaq/yaqd-thorlabs/"
-bugtracker = "https://gitlab.com/yaq/yaqd-thorlabs/issues"
+source = "https://github.com/yaq-project/yaqd-thorlabs/"
+bugtracker = "https://github.com/yaq-project/yaqd-thorlabs/issues"
 manufacturer = "https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=2420"
 
 [config]
