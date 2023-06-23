@@ -1,0 +1,14 @@
+[shared-settings]
+serial_port = "COM3"
+steps_per_unit = 409600
+chan_ident=1
+limits=[0,50]
+
+
+[d1_stage]
+dest=33
+port=39011
+
+[d2_stage]
+dest=34
+port=39012
