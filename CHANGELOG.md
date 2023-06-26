@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- example-yaq-configs folder with config_wright_waldo.toml for Thorlabs' BSC203 daemon.
+- link to config file in thorlabs-bsc203.toml
+
 ## [2022.7.0]
 
 ### Changed
