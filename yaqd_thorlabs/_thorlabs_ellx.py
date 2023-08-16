@@ -2,13 +2,13 @@ import asyncio
 from typing import Dict
 import struct
 
-from yaqd_core import UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon
+from yaqd_core import HasTransformedPosition, UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon
 from yaqd_core import aserial
 
 from ._serial import SerialDispatcherEll
 
 
-class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon):
+class ThorlabsEllx(HasTransformedPosition, UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsDaemon):
     _kind = "thorlabs-ellx"
     error_dict = {
         0: "",
@@ -44,6 +44,7 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
         self._read_queue = asyncio.Queue()
         self._serial.workers[self._address] = self._read_queue
         super().__init__(name, config, config_filepath)
+        self._native_units = "deg"
         self._units = config["units"]
         self._conversion = config["scalar"]
         self._serial.write(f"{self._address:X}gs\r\n".encode())
@@ -102,7 +103,7 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
         await self._read_queue.join()
         self._busy = True
         await self._not_busy_sig.wait()
-        self.set_position(self._state["destination"])
+        self.set_position(self.get_destination())
 
     def direct_serial_write(self, command: bytes):
         self._busy = True
