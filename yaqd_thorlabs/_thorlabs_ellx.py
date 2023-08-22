@@ -54,7 +54,6 @@ class ThorlabsEllx(
         self._read_queue = asyncio.Queue()
         self._serial.workers[self._address] = self._read_queue
         super().__init__(name, config, config_filepath)
-        self._native_units = "deg"
         self._units = config["units"]
         self._conversion = config["scalar"]
         self._serial.write(f"{self._address:X}gs\r\n".encode())

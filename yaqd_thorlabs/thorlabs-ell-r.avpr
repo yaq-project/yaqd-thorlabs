@@ -2,7 +2,7 @@
     "config": {
         "address": {
             "default": 0,
-            "doc": "Address for ELLx messages (default 0)",
+            "doc": "Address for Elliptec messages (default 0)",
             "type": "int"
         },
         "baud_rate": {
@@ -120,7 +120,6 @@
     "doc": "",
     "hardware": [
         "thorlabs:ell18",
-        "thorlabs:ell18m",
         "thorlabs:ell14"
     ],
     "installation": {
@@ -398,7 +397,7 @@
             "units_getter": "get_units"
         }
     },
-    "protocol": "thorlabs-ellx",
+    "protocol": "thorlabs-elliptec-rotation",
     "requires": [],
     "state": {
         "destination": {

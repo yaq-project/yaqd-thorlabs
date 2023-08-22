@@ -1,7 +1,7 @@
-protocol = "thorlabs-ellx"
-doc = ""
+protocol = "thorlabs-ell-r"
+doc = "Thorlabs Elliptec stage with rotational movement."
 traits = ["has-transformed-position", "has-limits", "is-homeable", "uses-uart", "is-daemon"]
-hardware = ["thorlabs:ell18", "thorlabs:ell18m", "thorlabs:ell14"]
+hardware = ["thorlabs:ell18", "thorlabs:ell14"]
 
 [links]
 source = "https://github.com/yaq-project/yaqd-thorlabs"
@@ -14,7 +14,7 @@ PyPI = "https://pypi.org/project/yaqd-thorlabs"
 [config]
 address.type = "int"
 address.default = 0
-address.doc = "Address for ELLx messages (default 0)"
+address.doc = "Address for Elliptec messages (default 0)"
 
 scalar.type = "double"
 scalar.default = 398
