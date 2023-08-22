@@ -117,7 +117,7 @@
             "type": "string"
         }
     },
-    "doc": "",
+    "doc": "Thorlabs Elliptec stage with rotational movement.",
     "hardware": [
         "thorlabs:ell18",
         "thorlabs:ell14"
@@ -397,7 +397,7 @@
             "units_getter": "get_units"
         }
     },
-    "protocol": "thorlabs-elliptec-rotation",
+    "protocol": "thorlabs-ell-r",
     "requires": [],
     "state": {
         "destination": {
