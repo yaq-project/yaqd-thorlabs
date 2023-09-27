@@ -61,6 +61,10 @@ class ThorlabsEllx(UsesUart, UsesSerial, IsHomeable, HasLimits, HasPosition, IsD
     async def update_state(self):
         while True:
             if not self._homing and not self._move_started:
+                # hack to keep correct position:
+                if self._state["position"] == 0.0 and self._state["destination"] != 0.0:
+                    self.logger.error("anomalous homing event")
+                    self.set_position(self.get_destination())
                 self._serial.write(f"{self._address:X}gs\r\n".encode())
                 self._serial.write(f"{self._address:X}gp\r\n".encode())
             await asyncio.sleep(0.2)
