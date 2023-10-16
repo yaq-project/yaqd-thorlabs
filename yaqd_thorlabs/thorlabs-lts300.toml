@@ -2,7 +2,7 @@ protocol = "thorlabs-lts300"
 doc = """
 Daemon for the Thorlabs LTS-300 stage
 """
-traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+traits = ["has-transformed-position", "has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:lts300"]
 
 [links]

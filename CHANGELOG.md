@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+- implement `has-transformed-position` trait on all `has-position` traits
+
 ## [2022.7.0]
 
 ### Changed

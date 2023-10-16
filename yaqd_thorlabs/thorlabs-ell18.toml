@@ -1,6 +1,6 @@
 protocol = "thorlabs-ell18"
 doc = ""
-traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+traits = ["has-transformed-position", "has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:ell18", "thorlabs:ell18m"]
 
 [links]

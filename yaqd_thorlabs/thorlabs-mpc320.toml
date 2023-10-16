@@ -2,7 +2,7 @@ protocol = "thorlabs-mpc320"
 doc = """
 Daemon for the Thorlabs MPC320 motorized fiber polarization controller.
 """
-traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+traits = ["has-transformed-position", "has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:mpc320"]
 
 [links]

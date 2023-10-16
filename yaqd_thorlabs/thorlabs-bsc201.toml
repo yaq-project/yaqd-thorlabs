@@ -2,7 +2,7 @@ protocol = "thorlabs-bsc201"
 doc = """
 Daemon for the Thorlabs BSC-201 stage
 """
-traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+traits = ["has-transformed-position", "has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:bsc201"]
 
 [links]
