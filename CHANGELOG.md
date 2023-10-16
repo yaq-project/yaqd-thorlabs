@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Build
+- Switch to flit-scm (wrapper around setuptools-scm)
+
 ## [2022.7.0]
 
 ### Changed
