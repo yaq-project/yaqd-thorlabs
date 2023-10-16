@@ -9,6 +9,7 @@ hardware = ["thorlabs:bsc201"]
 source = "https://github.com/yaq-project/yaqd-thorlabs/"
 bugtracker = "https://github.com/yaq-project/yaqd-thorlabs/issues"
 manufacturer = "https://www.thorlabschina.cn/thorProduct.cfm?partNumber=BSC201"
+example-configs = "https://github.com/yaq-project/yaqd-thorlabs/tree/main/example-yaq-configs/thorlabs-bsc201"
 
 [config]
 source.type = "int"
