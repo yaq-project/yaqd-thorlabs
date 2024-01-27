@@ -1,0 +1,4 @@
+[polarizer]
+port = 39010
+model = "ELL14"
+serial_port = "COM5"
