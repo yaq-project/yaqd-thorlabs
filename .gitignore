@@ -51,3 +51,6 @@ coverage.xml
 
 # vim
 *.sw?
+
+# setuptools-scm
+yaqd_thorlabs/_version.py
