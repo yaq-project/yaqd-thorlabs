@@ -2,7 +2,7 @@ protocol = "thorlabs-k10cr1"
 doc = """
 Daemon for the Thorlabs K10CR1 rotational stage
 """
-traits = ["has-limits", "is-homeable", "uses-uart", "is-daemon"]
+traits = ["has-transformed-position", "has-limits", "is-homeable", "uses-uart", "is-daemon"]
 hardware = ["thorlabs:k10cr1"]
 
 [links]
