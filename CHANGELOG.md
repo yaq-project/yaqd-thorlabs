@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+- measure code revised to avoid recursion
+
 ## [2022.7.0]
 
 ### Changed
