@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- `thorlabs-pm-triggered`: `_measure` code revised to avoid recursion
+
 ### Added
 - some example configs
 
