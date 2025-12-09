@@ -1,0 +1,7 @@
+[hp_FH_IDL]
+address=0
+offset=114
+port=38401
+baud_rate=9600
+scalar=398
+serial_port="COM7"

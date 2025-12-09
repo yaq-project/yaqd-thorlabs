@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Added
-- Added example configs for daemons
+- some example configs
 
 ## [2022.7.0]
 
