@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import re
 
@@ -6,16 +8,35 @@ from yaqd_core import aserial, logging
 logger = logging.getLogger("serial")
 
 
+class TaskSet(set):
+    """a set for asyncio tasks.  guards against premature garbage collection"""
+
+    def __init__(self, iterable=()):
+        super().__init__(iterable)
+        for task in self:
+            task.add_done_callback(self.discard)
+
+    def add(self, task: asyncio.Task):
+        super().add(task)
+        task.add_done_callback(self.discard)
+
+    def add_coro(self, coro):
+        task = asyncio.get_running_loop().create_task(coro)
+        self.add(task)
+
+
 class SerialDispatcher:
     def __init__(self, port):
         self.port = port
         self.workers = {}
         self.write_queue = asyncio.Queue()
         self.loop = asyncio.get_running_loop()
-        self.tasks = [
-            self.loop.create_task(self.do_writes()),
-            self.loop.create_task(self.read_dispatch()),
-        ]
+        self.tasks = TaskSet(
+            [
+                self.loop.create_task(self.do_writes()),
+                self.loop.create_task(self.read_dispatch()),
+            ]
+        )
 
     def write(self, data):
         self.write_queue.put_nowait(data)
@@ -34,14 +55,15 @@ class SerialDispatcher:
         self.port.flush()
 
     def close(self):
-        self.loop.create_task(self._close())
+        self.tasks.add_coro(self._close())
 
     async def _close(self):
         await self.write_queue.join()
         for worker in self.workers.values():
             await worker.join()
         for task in self.tasks:
-            task.cancel()
+            if task is not asyncio.current_task():
+                task.cancel()
 
 
 class SerialDispatcherApt(SerialDispatcher):
