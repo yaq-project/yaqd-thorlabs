@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Fixed
 - asyncio implementation works on python >= 3.14
 
+### Changed
+- `thorlabs-pm-triggered`: `_measure` code revised to avoid recursion
+
+### Added
+- some example configs
+
 ## [2022.7.0]
 
 ### Changed

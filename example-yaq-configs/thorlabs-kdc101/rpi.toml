@@ -1,0 +1,5 @@
+[opa4_c1]
+port = 38100
+limits = [-1, 12]
+serial_port = "/dev/serial/by-id/usb-Thorlabs_Brushed_Motor_Controller_27600641"
+steps_per_unit = 34554.96
