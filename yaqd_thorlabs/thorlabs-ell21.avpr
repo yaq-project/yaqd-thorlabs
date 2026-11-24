@@ -85,7 +85,7 @@
             "type": "int"
         },
         "scalar": {
-            "default": 398,
+            "default": 182.04,
             "doc": "Conversion factor from motor steps to units",
             "type": "double"
         },
